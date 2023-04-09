@@ -45,8 +45,7 @@ class GameView:
     def contains(self,posCkick):
         if posCkick[0] >= self.__imgGridPos[0] and posCkick[0] <= self.__imgGridPos[0] + self.__imgGridDim[0]:
             if  posCkick[1] >= self.__imgGridPos[1] and posCkick[1] <= self.__imgGridPos[1] + self.__imgGridDim[1]:
-                self.__caseClicked = (posCkick[0]//((self.__imgGridDim[0]//3)+20),posCkick[1]//((self.__imgGridDim[1]//3)+60))
-        self.__caseClicked = None
+                self.__caseClicked = (posCkick[1]//((self.__imgGridDim[1]//3)+60),posCkick[0]//((self.__imgGridDim[0]//3)+20))
         
     def drawGrid(self):
         self.__imgGridDim = (45*self.__dimWinP[0],60*self.__dimWinP[1])

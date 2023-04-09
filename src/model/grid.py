@@ -28,8 +28,9 @@ class Grid:
     
     #methods
     def addAt(self,symbol,row,column):
-        if self.__matrix[row][column] != self.__empty:
+        if self.__matrix[row][column] == self.__empty:
             self.__matrix[row][column] = symbol
+            print(row,column)
             return True
         return False
 

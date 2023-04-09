@@ -7,7 +7,12 @@ class Player:
     def __init__(self,name,point=0):
         self.__name = name
         self.__point = point
-        self.__symbol = "O" if Player.fistPlayer else "X"
+        if Player.fistPlayer:
+            Player.fistPlayer = not Player.fistPlayer
+            self.__symbol = "O" 
+        else:
+            self.__symbol = "X"
+            Player.fistPlayer = not Player.fistPlayer
         self.__profile = 0 #a venir (image)
         self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
     
