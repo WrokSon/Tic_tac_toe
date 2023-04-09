@@ -1,11 +1,15 @@
+import pygame, sys, os
+sys.path.append(os.getcwd())
+
 class Player:
     fistPlayer = True
     
     def __init__(self,name,point=0):
         self.__name = name
         self.__point = point
-        self.__synbol = "O" if Player.fistPlayer else "X"
+        self.__symbol = "O" if Player.fistPlayer else "X"
         self.__profile = 0 #a venir (image)
+        self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
     
     #Getters and Setters
     def getName(self):
@@ -25,7 +29,13 @@ class Player:
     
     def setProfile(self, newProfile):
         self.__profile = newProfile
-        
+    
+    def getImg(self):
+        return self.__image
+    
+    def getSymbol(self):
+        return self.__symbol
+    
     #Methods
     
     def addPoint(self,point=1):

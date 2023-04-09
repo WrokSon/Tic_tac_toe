@@ -1,10 +1,14 @@
+import pygame, sys, os
+sys.path.append(os.getcwd())
+
 class Grid:
     def __init__(self):
         self.__nbCol = 3
         self.__nbRow = 3
-        self.__empty = " "
+        self.__empty = "."
         self.__initMatrix = [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
         self.__matrix = self.__initMatrix
+        self.__image = pygame.image.load("src/ressources/images/game/grid.png")
     
     #Getters
     def getNbCol(self):
@@ -15,6 +19,12 @@ class Grid:
     
     def getMatrix(self):
         return self.__matrix
+    
+    def getEmpty(self):
+        return self.__empty
+    
+    def getImg(self):
+        return self.__image
     
     #methods
     def addAt(self,symbol,row,column):
