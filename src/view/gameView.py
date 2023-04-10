@@ -15,48 +15,54 @@ class GameView:
     
     def doEvent(self,event):
         if event.type == pygame.QUIT:
-            self.drawTokens()
             sys.exit(0)
-        
-        elif event.type == pygame.VIDEORESIZE:
-            size = [event.w,event.h]
-            if event.w <= 500:
-                size[0] = 500
-                
-            if event.h <= 400:
-                size[1] = 400
-            pygame.display.set_mode(size, pygame.RESIZABLE)
     
         elif event.type == pygame.MOUSEBUTTONDOWN:
             self.contains(pygame.mouse.get_pos())
-            #print(f"click:{pygame.mouse.get_pos()} dim:{self.__imgGridDim} pos:{self.__imgGridPos}")
     
     def update(self,event):
-        self.drawAll()
         self.doEvent(event)
     
-    def drawAll(self):
-        self.__dimensionWindow = pygame.display.get_surface().get_size()
-        self.__dimWinP =(self.__dimensionWindow[0] // 100, self.__dimensionWindow[1] // 100)
+    def drawAll(self,symbolPlayer1,symbolPlayer2):
         self.__window.fill("grey")
         pygame.display.set_caption(self.__windowTitle)
         self.drawGrid()
+        self.drawAllTokens(symbolPlayer1,symbolPlayer2)
+        pygame.display.update() 
     
-    def contains(self,posCkick):
-        if posCkick[0] >= self.__imgGridPos[0] and posCkick[0] <= self.__imgGridPos[0] + self.__imgGridDim[0]:
-            if  posCkick[1] >= self.__imgGridPos[1] and posCkick[1] <= self.__imgGridPos[1] + self.__imgGridDim[1]:
-                self.__caseClicked = (posCkick[1]//((self.__imgGridDim[1]//3)+60),posCkick[0]//((self.__imgGridDim[0]//3)+20))
-        
+    def contains(self,posClick):
+        #posClick est la position de la sourie au moment du clique
+        if posClick[0] >= self.__imgGridPos[0] and posClick[0] <= self.__imgGridPos[0] + self.__imgGridDim[0]:
+            if  posClick[1] >= self.__imgGridPos[1] and posClick[1] <= self.__imgGridPos[1] + self.__imgGridDim[1]:
+                #calcul est simple
+                #1)on retir la marge da la grille au position de la souris
+                #2)on divise (entiere) par la taille de la grille lui meme diviser(entiere) par 3
+                self.__caseClicked = ((posClick[0]-self.__imgGridPos[0])//(self.__imgGridDim[0]//3),
+                                      (posClick[1]-self.__imgGridPos[1])//(self.__imgGridDim[1]//3))
+
     def drawGrid(self):
-        self.__imgGridDim = (45*self.__dimWinP[0],60*self.__dimWinP[1])
-        self.__imgGridPos = (5*self.__dimWinP[0],20*self.__dimWinP[1])
+        self.__imgGridDim = (300,300)
+        self.__imgGridPos = (10,60)
         self.__gridImg = pygame.transform.scale(self.__imageGrid, self.__imgGridDim)
         self.__window.blit(self.__gridImg,self.__imgGridPos)
   
-    def drawTokens(self):
-        for elemt in self.__grid:
-            for case in elemt:
-                print(case,end=" ")
-            print()
+    def drawAllTokens(self,symbolPlayer1,symbolPlayer2):
+        #print("\n",self.__caseClicked)
+        for i in range(len(self.__grid)):
+            for j in range(len(self.__grid[i])):
+                #print(self.__grid[i][j],end=" ")
+                if self.__grid[i][j] == symbolPlayer1:
+                    self.drawTokensPlayer(self.__imagePlayer1,(j,i))
+
+                if self.__grid[i][j] == symbolPlayer2:
+                    self.drawTokensPlayer(self.__imagePlayer2,(j,i))
+            #print()
+    def drawTokensPlayer(self,imgPlayer,pos):
+        imgDim = ((self.__imgGridDim[1]//3)-10,(self.__imgGridDim[1]//3)-10)
+        imgPos = ((pos[0]*(self.__imgGridDim[1]//3))+15,(pos[1]*(self.__imgGridDim[1]//3))+65)
+        Img = pygame.transform.scale(imgPlayer, imgDim)
+        self.__window.blit(Img,imgPos)
+        
+
               
         

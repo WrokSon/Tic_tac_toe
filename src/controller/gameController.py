@@ -34,16 +34,16 @@ class GameController:
         grid = self.__grid.getMatrix()
         for i in range(3):
             # Vérifie l'alignement horizontal
-            if grid[i][0] == grid[i][1] == grid[i][2]:
+            if grid[i][0] == grid[i][1] == grid[i][2] != self.__grid.getEmpty():
                 return True
             # Vérifie l'alignement vertical
-            if grid[0][i] == grid[1][i] == grid[2][i]:
+            if grid[0][i] == grid[1][i] == grid[2][i] != self.__grid.getEmpty():
                 return True
         # Vérifie l'alignement diagonal de gauche à droite
-        if grid[0][0] == grid[1][1] == grid[2][2]:
+        if grid[0][0] == grid[1][1] == grid[2][2] != self.__grid.getEmpty():
             return True
         # Vérifie l'alignement diagonal de droite à gauche
-        if grid[0][2] == grid[1][1] == grid[2][0]:
+        if grid[0][2] == grid[1][1] == grid[2][0] != self.__grid.getEmpty():
             return True
         return False
 
@@ -55,20 +55,19 @@ class GameController:
     
     def runGame(self):
         caseClicked = self.__view.getCaseClicked()
-        print(self.__cuurentPalyer)
-        if caseClicked != self.__precedentCaseClicked and self.play(caseClicked[0],caseClicked[1]):
+        if caseClicked != self.__precedentCaseClicked and self.play(caseClicked[1],caseClicked[0]):
             self.__precedentCaseClicked = caseClicked
             self.changeCurrentPlayer()
     
     def run(self):
         while True and not self.endGame():
-            self.__view.drawAll()
+            self.__view.drawAll(self.__players[0].getSymbol(),self.__players[1].getSymbol())
             self.runGame()
             for event in pygame.event.get():
                 self.__view.update(event)
-            pygame.display.update()  
+                self.endGame()
             
     def endGame(self):
-        return self.__grid.isFull() and self.detectWinner() 
+        return self.__grid.isFull() or self.detectWinner() 
     
     
