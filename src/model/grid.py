@@ -45,3 +45,5 @@ class Grid:
                     return False
         return True
     
+    def isEmpty(self):
+        return self.__matrix == [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
