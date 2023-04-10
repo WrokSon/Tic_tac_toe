@@ -142,19 +142,23 @@ class Text:
     def __init__(self, window, text, position, color="black", size=30):
         self.__window = window
         self.__text = text
+        self.__size = size
         self.position = position
         self.__color = color
-        self.font = pygame.font.Font(None, size)
+        self.__font = pygame.font.Font(None, self.__size)
         self.draw()
 
     def getText(self):
         return self.__text
 
+    def setFont(self,newFont):
+        self.__font = pygame.font.Font(newFont, self.__size)
+
     def setText(self, newText):
         self.__text = newText
 
     def draw(self):
-        text = self.font.render(self.__text, True, self.__color)
+        text = self.__font.render(self.__text, True, self.__color)
         self.__window.blit(text, self.position)
 
 

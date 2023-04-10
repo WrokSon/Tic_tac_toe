@@ -13,7 +13,7 @@ class Player:
         else:
             self.__symbol = "X"
             Player.fistPlayer = not Player.fistPlayer
-        self.__profile = 0 #a venir (image)
+        self.__profileImg = pygame.image.load(f"src/ressources/images/\profile/profilePlayer{self.__symbol}.jpg")
         self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
     
     #Getters and Setters
@@ -29,11 +29,11 @@ class Player:
     def setPoint(self,newPoint):
         self.__point = newPoint
     
-    def getProfile(self):
-        return self.__profile
+    def getProfileImg(self):
+        return self.__profileImg
     
-    def setProfile(self, newProfile):
-        self.__profile = newProfile
+    def setProfileImg(self, newProfile):
+        self.__profileImg = newProfile
     
     def getImg(self):
         return self.__image

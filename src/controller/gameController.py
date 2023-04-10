@@ -11,8 +11,7 @@ class GameController:
         self.__players = [Player("Player 1"),Player("Player 2")]
         self.__cuurentPalyer = 0
         self.__grid = Grid()
-        self.__view = GameView(window,self.__grid.getImg(),self.__players[0].getImg(),
-                               self.__players[1].getImg(),self.__grid.getMatrix())
+        self.__view = GameView(window,self.__grid.getImg(),self.__players,self.__grid)
         self.__score = [0,0]
         self.__precedentCaseClicked = None
     #methods
@@ -59,13 +58,20 @@ class GameController:
             self.__precedentCaseClicked = caseClicked
             self.changeCurrentPlayer()
     
+    def action(self,event):
+        if event.type == pygame.QUIT:
+            sys.exit(0)
+        if event.type == pygame.KEYDOWN:
+            self.restart()
+
     def run(self):
-        while True and not self.endGame():
+        while True:
             self.__view.drawAll(self.__players[0].getSymbol(),self.__players[1].getSymbol())
             self.runGame()
             for event in pygame.event.get():
-                self.__view.update(event)
-                self.endGame()
+                if not self.endGame():
+                    self.__view.update(event)
+                self.action(event)
             
     def endGame(self):
         return self.__grid.isFull() or self.detectWinner() 

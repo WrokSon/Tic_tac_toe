@@ -6,8 +6,7 @@ class Grid:
         self.__nbCol = 3
         self.__nbRow = 3
         self.__empty = "."
-        self.__initMatrix = [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
-        self.__matrix = self.__initMatrix
+        self.__matrix = [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
         self.__image = pygame.image.load("src/ressources/images/game/grid.png")
     
     #Getters
@@ -37,7 +36,7 @@ class Grid:
         self.__matrix[row][column] = self.__empty
 
     def clearMatrix(self):
-        self.__matrix = self.__initMatrix
+        self.__matrix = [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
 
     def isFull(self):
         for i in range(len(self.__matrix)):
