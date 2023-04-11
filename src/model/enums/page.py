@@ -6,4 +6,5 @@ class Page(Enum):
     NEXT = -1
     HOME = 0
     GAME = 1
-    UNAVAILABLE = 2
+    SETTINGS = 2
+    UNAVAILABLE = 3

@@ -9,12 +9,12 @@ from model.enums.page import Page
 pygame.init()
 
 class GameController:
-    def __init__(self,common):
-        self.__common = common
-        self.__mode = self.__common["mode"]
+    def __init__(self,shared):
+        self.__shared = shared
+        self.__mode = self.__shared["mode"]
         self.__grid = Grid()
         self.createPalyers()
-        self.__view = GameView(self.__common,self.__grid.getImg(),self.__players,self.__grid)
+        self.__view = GameView(self.__shared,self.__grid.getImg(),self.__players,self.__grid)
         self.__precedentCaseClicked = None
 
     def setModeGame(self,newMode):
@@ -23,7 +23,8 @@ class GameController:
     #methods
     def createPalyers(self):
         if self.__mode == ModeGame.HUMAN:
-            self.__players = [Player("Player 1"),Player("Player 2")]
+            self.__players = [Player(self.__shared["NamePlayer1"],self.__shared["ImagePlayer1"]),
+                              Player(self.__shared["NamePlayer2"],self.__shared["ImagePlayer2"])]
         self.__currentPalyer = 0
 
     def changeCurrentPlayer(self):
@@ -79,18 +80,32 @@ class GameController:
     def action(self,event):
         if event.type == pygame.QUIT:
             sys.exit(0)
+
+        if self.__view.getValueBtnSettings():
+            self.__shared["page"] = Page.SETTINGS
+            self.__view.setValueBtnSettings()
+            return Page.NEXT
+
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE) or self.__view.getValueBtnRestart():
             self.restart()
             self.__view.setValueBtnRestart()
             
-        
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or self.__view.getValueBtnHomeGo():
-            self.__common["page"] = Page.HOME
+            self.__shared["page"] = Page.HOME
             self.__view.setValueBtnHomeGo()
             return Page.NEXT
-    
-    def update(self,update):
-        self.__common = update
+  
+    def update(self,sharedUpdate):
+        #pour mettre a jour le des infos partagés
+        self.__shared = sharedUpdate
+        self.updatePalyers()
+        self.__view.refreshView(self.__shared)
+
+    def updatePalyers(self):
+        self.__players[0].setName(self.__shared["NamePlayer1"])
+        self.__players[1].setName(self.__shared["NamePlayer2"])
+        self.__players[0].setProfileImg(self.__shared["ImagePlayer1"])
+        self.__players[1].setProfileImg(self.__shared["ImagePlayer2"])
 
     def run(self):
         while True:
@@ -98,6 +113,6 @@ class GameController:
             self.currentGame()
             for event in pygame.event.get():
                 if self.action(event) == Page.NEXT:
-                    return self.__common
+                    return self.__shared
                 self.__view.update(event)
-    
+

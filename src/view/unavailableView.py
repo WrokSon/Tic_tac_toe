@@ -1,18 +1,15 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
-from ressources.tools import Text, Button
-from model.enums.modeGame import ModeGame
+from ressources.display.tools import Text, Button
 
 pygame.init()
 
 class UnavailableView:
-    def __init__(self,common):
-        self.__common = common
-        self.__windowTitle = "Tic Tac Toe | Unavailable"
-        self.__window = self.__common["window"]
-        self.__fonts = self.__common["fonts"]
-        self.__mode = self.__common["mode"]
+    def __init__(self,shared):
+        self.__shared = shared
+        self.__windowTitle = "Tic Tac Toe | Pag indisponnible"
+        self.__window = self.__shared["window"]
         self.createAll()
     
     def getValueBtnHome(self):
@@ -39,6 +36,9 @@ class UnavailableView:
         self.__btnHomeGo.update(event)
 
     def createBg(self):
-        bgImg = self.__common["bg"]
+        bgImg = self.__shared["bg"]
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
+    def refreshView(self,newShared):
+        self.__shared = newShared
+        self.createBg()

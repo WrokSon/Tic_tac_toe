@@ -4,7 +4,7 @@ sys.path.append(os.getcwd())
 class Player:
     fistPlayer = True
     
-    def __init__(self,name,point=0,nbGamePlayed=0):
+    def __init__(self,name,profileImage,point=0,nbGamePlayed=0):
         self.__name = name
         self.__point = point
         self.__nbGamePlayed = nbGamePlayed     
@@ -16,7 +16,7 @@ class Player:
             self.__symbol = "X"
             Player.fistPlayer = not Player.fistPlayer
             self.__color = "blue"
-        self.__profileImg = pygame.image.load(f"src/ressources/images/profile/profilePlayer{self.__symbol}.jpg")
+        self.__profileImg = profileImage
         self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
         self.__imageWin = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}win.jpg")
     

@@ -14,6 +14,9 @@ Debut du projet : 09/04/2023
 
 ## Contenu
 il y a un executable + le code source
+musiques = https://pixabay.com/fr/music/search/action/
+images = https://pixabay.com/fr/images/search/fond%20d
+Police = https://www.dafont.com/fr/
 
 ## Fonctionnement
 Quand vous avez recuperé le dossier 'Tic_tac_toe' avec ses contenants, placez le où vous voulais est creez un racourcie de l'executable la ou vous voulez (dans Bureau de preferance) puis vous cliquez dessus pour la,cer l'application.

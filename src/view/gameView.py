@@ -1,17 +1,17 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
-from ressources.tools import Text, Button
+from ressources.display.tools import Text, Button
 
 class GameView:
-    def __init__(self,common,imgGrid,players,grid):
-        self.__common = common
+    def __init__(self,shared,imgGrid,players,grid):
+        self.__shared = shared
         self.__imageGrid = imgGrid
         self.__player1 = players[0]
         self.__player2 = players[1]
-        self.__windowTitle = "Tic Tac Toe | Game"
-        self.__window = self.__common["window"]
-        self.__fonts = self.__common["fonts"]
-        self.__mode = self.__common["mode"]
+        self.__windowTitle = "Tic Tac Toe | Jeu"
+        self.__window = self.__shared["window"]
+        self.__fonts = self.__shared["fonts"]
+        self.__mode = self.__shared["mode"]
         self.__caseClicked = None
         self.__grid = grid
         self.__listWinner = []
@@ -24,11 +24,17 @@ class GameView:
     def getValueBtnHomeGo(self):
         return self.__btnHomeGo.isActive()
     
+    def getValueBtnSettings(self):
+        return self.__btnSettingsGo.isActive()
+
     def setValueBtnRestart(self):
         self.__btnRestart.notActive()
 
     def setValueBtnHomeGo(self):
         self.__btnHomeGo.notActive()
+
+    def setValueBtnSettings(self):
+        self.__btnSettingsGo.notActive()
 
     def setListWinner(self,newList):
         self.__listWinner = newList
@@ -45,7 +51,13 @@ class GameView:
     def doEvent(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN and self.__listWinner == []:
             self.contains(pygame.mouse.get_pos())
-    
+            
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+            if self.__colorTurnText == "white":
+                self.__colorTurnText = "black"
+            else:
+                self.__colorTurnText = "white"
+   
     def update(self,event):
         self.doEvent(event)
         self.updateButtons(event)
@@ -107,6 +119,7 @@ class GameView:
         self.__window.blit(Img,imgPos)
 
     def createTexts(self):
+        self.__colorTurnText = "black"
         #Versus
         self.__textVS = Text(self.__window,"VS",(550,140),"yellow")
         self.__textVS.setFont(self.__fonts[2])
@@ -114,7 +127,7 @@ class GameView:
         self.__textScore = Text(self.__window,"",(100,20))
         self.__textScore.setFont(self.__fonts[0])
         #Turn
-        self.__textTrun = Text(self.__window,f"Tour : {self.__currentSymbol}",(300,20))
+        self.__textTrun = Text(self.__window,f"Tour : {self.__currentSymbol}",(300,20),self.__colorTurnText)
         self.__textTrun.setFont(self.__fonts[1])
 
     def drawTexts(self):
@@ -129,71 +142,76 @@ class GameView:
         #tour
         self.__textTrun.draw()
         self.__textTrun.setText(f"Tour : {self.__currentSymbol}")
+        self.__textTrun.setColor(self.__colorTurnText)
     
     def createProfilePlayerX(self):
-        self.__positionProfileX = (480,20)
-        marge = (110,[i*20 for i in range(4)])
-        size = 20
-        color = "white"
-        self.__tNamePlayerX = Text(self.__window,f"Nom : {self.__player1.getName()}",(self.__positionProfileX[0]+marge[0],self.__positionProfileX[1]+marge[1][0]),color,size)
-        self.__tSymbolPlayerX = Text(self.__window,f"Symbole : '{self.__player1.getSymbol()}'",(self.__positionProfileX[0]+marge[0],self.__positionProfileX[1]+marge[1][1]),color,size)
-        self.__tPointPlayerX = Text(self.__window,f"Point : {self.__player1.getPoint()}",(self.__positionProfileX[0]+marge[0],self.__positionProfileX[1]+marge[1][2]),color,size)
-        self.__tNbGamePlayedX = Text(self.__window,f"Parties total : {self.__player1.getNbGamePlayed()}",(self.__positionProfileX[0]+marge[0],self.__positionProfileX[1]+marge[1][3]),color,size)
+        self.__positionProfileX = (self.__posProfileX,20)
+        self.__tNamePlayerX = Text(self.__window,f"Nom : {self.__player1.getName()}",(self.__positionProfileX[0]+self.__margeProfile[0],self.__positionProfileX[1]+self.__margeProfile[1][0]),self.__colorProfileText,self.__profileSize)
+        self.__tSymbolPlayerX = Text(self.__window,f"Symbole : '{self.__player1.getSymbol()}'",(self.__positionProfileX[0]+self.__margeProfile[0],self.__positionProfileX[1]+self.__margeProfile[1][1]),self.__colorProfileText,self.__profileSize)
+        self.__tPointPlayerX = Text(self.__window,f"Point : {self.__player1.getPoint()}",(self.__positionProfileX[0]+self.__margeProfile[0],self.__positionProfileX[1]+self.__margeProfile[1][2]),self.__colorProfileText,self.__profileSize)
+        self.__tNbGamePlayedX = Text(self.__window,f"Parties total : {self.__player1.getNbGamePlayed()}",(self.__positionProfileX[0]+self.__margeProfile[0],self.__positionProfileX[1]+self.__margeProfile[1][3]),self.__colorProfileText,self.__profileSize)
     
     def drawProfilePlayerX(self):
-        pygame.draw.rect(self.__window,"black",[(self.__positionProfileX[0]-10,self.__positionProfileX[1]-10),(235,120)])
+        pygame.draw.rect(self.__window,self.__player1.getColor(),[(self.__positionProfileX[0]-10,self.__positionProfileX[1]-10),self.__dimProfileBg])
         Img = pygame.transform.scale(self.__player1.getProfileImg(), (100,100))
         self.__window.blit(Img,self.__positionProfileX)
         self.__tNamePlayerX.draw()
         self.__tPointPlayerX.draw()
         self.__tSymbolPlayerX.draw()
         self.__tNbGamePlayedX.draw()
+        self.__tNamePlayerX.setText(f"Nom : {self.__player1.getName()}")
         self.__tPointPlayerX.setText(f"Point : {self.__player1.getPoint()}")
         self.__tNbGamePlayedX.setText(f"Parties total : {self.__player1.getNbGamePlayed()}")
     
     def createProfilePlayerO(self):
-        self.__positionProfileO = (480,200)
-        marge = (110,[i*20 for i in range(4)])
-        size = 20
-        color = "white"
-        self.__tNamePlayerO = Text(self.__window,f"Nom : {self.__player2.getName()}",(self.__positionProfileO[0]+marge[0],self.__positionProfileO[1]+marge[1][0]),color,size)
-        self.__tSymbolPlayerO = Text(self.__window,f"Symbole : '{self.__player2.getSymbol()}'",(self.__positionProfileO[0]+marge[0],self.__positionProfileO[1]+marge[1][1]),color,size)
-        self.__tPointPlayerO = Text(self.__window,f"Point : {self.__player2.getPoint()}",(self.__positionProfileO[0]+marge[0],self.__positionProfileO[1]+marge[1][2]),color,size)
-        self.__tNbGamePlayedO = Text(self.__window,f"Parties total : {self.__player2.getNbGamePlayed()}",(self.__positionProfileO[0]+marge[0],self.__positionProfileO[1]+marge[1][3]),color,size)
+        self.__positionProfileO = (self.__posProfileX,200)
+        self.__tNamePlayerO = Text(self.__window,f"Nom : {self.__player2.getName()}",(self.__positionProfileO[0]+self.__margeProfile[0],self.__positionProfileO[1]+self.__margeProfile[1][0]),self.__colorProfileText,self.__profileSize)
+        self.__tSymbolPlayerO = Text(self.__window,f"Symbole : '{self.__player2.getSymbol()}'",(self.__positionProfileO[0]+self.__margeProfile[0],self.__positionProfileO[1]+self.__margeProfile[1][1]),self.__colorProfileText,self.__profileSize)
+        self.__tPointPlayerO = Text(self.__window,f"Point : {self.__player2.getPoint()}",(self.__positionProfileO[0]+self.__margeProfile[0],self.__positionProfileO[1]+self.__margeProfile[1][2]),self.__colorProfileText,self.__profileSize)
+        self.__tNbGamePlayedO = Text(self.__window,f"Parties total : {self.__player2.getNbGamePlayed()}",(self.__positionProfileO[0]+self.__margeProfile[0],self.__positionProfileO[1]+self.__margeProfile[1][3]),self.__colorProfileText,self.__profileSize)
     
     def drawProfilePlayerO(self):
-        pygame.draw.rect(self.__window,"black",[(self.__positionProfileO[0]-10,self.__positionProfileO[1]-10),(235,120)])
+        pygame.draw.rect(self.__window,self.__player2.getColor(),[(self.__positionProfileO[0]-10,self.__positionProfileO[1]-10),self.__dimProfileBg])
         Img = pygame.transform.scale(self.__player2.getProfileImg(), (100,100))
         self.__window.blit(Img,self.__positionProfileO)
         self.__tNamePlayerO.draw()
         self.__tPointPlayerO.draw()
         self.__tSymbolPlayerO.draw()
         self.__tNbGamePlayedO.draw()
+        self.__tNamePlayerO.setText(f"Nom : {self.__player2.getName()}")
         self.__tPointPlayerO.setText(f"Point : {self.__player2.getPoint()}")
         self.__tNbGamePlayedO.setText(f"Parties total : {self.__player2.getNbGamePlayed()}")
 
     def drawProfile(self):
+        self.__dimProfileBg = (265,120)
         self.drawProfilePlayerX()
         self.drawProfilePlayerO()
 
     def createPofiles(self):
+        self.__colorProfileText = "black"
+        self.__posProfileX = 460
+        self.__margeProfile = (110,[i*20 for i in range(4)])
+        self.__profileSize = 20
         self.createProfilePlayerX()
         self.createProfilePlayerO()
               
     def createButtons(self):
-        self.__btnRestart = Button(self.__window,"restart",position=(550,340))
-        self.__btnHomeGo = Button(self.__window,"Home",position=(400,340))
+        self.__btnRestart = Button(self.__window,"restart",position=(610,340),dimension=(100,50))
+        self.__btnHomeGo = Button(self.__window,"Home",position=(500,340),dimension=(100,50))
+        self.__btnSettingsGo = Button(self.__window,"*",position=(390,340),dimension=(100,50))
 
     def drawButtons(self):
         self.__btnRestart.draw()
         self.__btnHomeGo.draw()
+        self.__btnSettingsGo.draw()
 
     def updateButtons(self,event):
         self.__btnRestart.update(event)
         self.__btnHomeGo.update(event)
+        self.__btnSettingsGo.update(event)
 
     def createBg(self):
-        bgImg = self.__common["bg"]
+        bgImg = self.__shared["bg"]
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
     def createScoreBar(self):
@@ -221,4 +239,7 @@ class GameView:
         pygame.draw.rect(self.__window,self.__player2.getColor(),infoBar)
         pygame.draw.rect(self.__window,self.__player1.getColor(),[infoBar[0],(infoBar[1][0],lengthBarPalyer1)])
 
+    def refreshView(self,newShared):
+        self.__shared = newShared
+        self.createBg()
 
