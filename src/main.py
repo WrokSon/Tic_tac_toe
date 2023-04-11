@@ -13,9 +13,9 @@ class App:
         self.loadFonts()
         self.__dimWindow = (720,400)
         self.__common = {"window":pygame.display.set_mode(self.__dimWindow),
-                         "bg":pygame.image.load(f"src/ressources/images/app/background.jpg"),
+                         "bg":pygame.image.load("src/ressources/images/app/background.jpg"),
                          "mode":ModeGame.HUMAN,
-                         "page":Page.HOME,
+                         "page":Page.GAME,
                          "fonts":self.__fonts}
         self.__controllers = [HomeComtroller(self.__common),
                               GameController(self.__common),

@@ -58,6 +58,7 @@ class GameView:
         self.drawTexts()
         self.drawProfile()
         self.drawButtons()
+        self.drawScoreBar()
         pygame.display.update()
 
     def createAll(self):
@@ -65,6 +66,7 @@ class GameView:
         self.createTexts()
         self.createPofiles()
         self.createButtons()
+        self.createScoreBar()
 
     def contains(self,posClick):
         #posClick est la position de la sourie au moment du clique
@@ -193,4 +195,30 @@ class GameView:
     def createBg(self):
         bgImg = self.__common["bg"]
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
+
+    def createScoreBar(self):
+        self.__tScoreBarPlayer1Pos = (330,70)
+        self.__tScoreBarPlayer2Pos = (330,310)
+        self.__tScoreBarPlayer1 = Text(self.__window,self.__player1.getName(),self.__tScoreBarPlayer1Pos,size=20)
+        self.__tScoreBarPlayer2 = Text(self.__window,self.__player2.getName(),self.__tScoreBarPlayer2Pos,size=20)
+        self.__tScoreBarPlayer1.setFont(self.__fonts[3])
+        self.__tScoreBarPlayer2.setFont(self.__fonts[3])
+
+    def drawScoreBar(self):
+        DimBgPlayer = (120,35)
+        infoBar = [(350,100),(50,195)]
+        self.drawScoreBarPlayers(infoBar)
+        pygame.draw.rect(self.__window,"black",infoBar,5)
+        pygame.draw.rect(self.__window,self.__player1.getColor(),[(self.__tScoreBarPlayer1Pos[0]-10,self.__tScoreBarPlayer1Pos[1]-10),DimBgPlayer])
+        pygame.draw.rect(self.__window,self.__player2.getColor(),[(self.__tScoreBarPlayer2Pos[0]-10,self.__tScoreBarPlayer2Pos[1]-10),DimBgPlayer])
+        self.__tScoreBarPlayer1.draw()
+        self.__tScoreBarPlayer2.draw()
+
+    def drawScoreBarPlayers(self,infoBar):
+        lengthBarPalyer1 = infoBar[1][1]//2
+        nbPartGame = self.__player1.getPoint() + self.__player2.getPoint()
+        if nbPartGame != 0 : lengthBarPalyer1 = (self.__player1.getPoint()*infoBar[1][1])//nbPartGame
+        pygame.draw.rect(self.__window,self.__player2.getColor(),infoBar)
+        pygame.draw.rect(self.__window,self.__player1.getColor(),[infoBar[0],(infoBar[1][0],lengthBarPalyer1)])
+
 

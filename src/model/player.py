@@ -11,9 +11,11 @@ class Player:
         if Player.fistPlayer:
             Player.fistPlayer = not Player.fistPlayer
             self.__symbol = "O" 
+            self.__color = "red"
         else:
             self.__symbol = "X"
             Player.fistPlayer = not Player.fistPlayer
+            self.__color = "blue"
         self.__profileImg = pygame.image.load(f"src/ressources/images/profile/profilePlayer{self.__symbol}.jpg")
         self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
         self.__imageWin = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}win.jpg")
@@ -52,6 +54,12 @@ class Player:
     def getSymbol(self):
         return self.__symbol
     
+    def getColor(self):
+        return self.__color
+    
+    def setColor(self,newColor):
+        self.__color = newColor
+
     #Methods  
     def addPoint(self,point=1):
         self.__point += point
