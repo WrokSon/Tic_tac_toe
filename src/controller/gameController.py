@@ -5,15 +5,20 @@ from model.grid import Grid
 from model.player import Player
 from view.gameView import GameView
 from model.enums.modeGame import ModeGame
+from model.enums.page import Page
 pygame.init()
 
 class GameController:
-    def __init__(self,window,mode=ModeGame.HUMAN):
-        self.__mode = mode
+    def __init__(self,common):
+        self.__common = common
+        self.__mode = self.__common["mode"]
         self.__grid = Grid()
         self.createPalyers()
-        self.__view = GameView(window,self.__grid.getImg(),self.__players,self.__grid)
+        self.__view = GameView(self.__common,self.__grid.getImg(),self.__players,self.__grid)
         self.__precedentCaseClicked = None
+
+    def setModeGame(self,newMode):
+        self.__mode = newMode
 
     #methods
     def createPalyers(self):
@@ -74,14 +79,25 @@ class GameController:
     def action(self,event):
         if event.type == pygame.QUIT:
             sys.exit(0)
-        if event.type == pygame.KEYDOWN or self.__view.getValueBtnRestart():
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE) or self.__view.getValueBtnRestart():
             self.restart()
+            self.__view.setValueBtnRestart()
+            
+        
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or self.__view.getValueBtnHomeGo():
+            self.__common["page"] = Page.HOME
+            self.__view.setValueBtnHomeGo()
+            return Page.NEXT
+    
+    def update(self,update):
+        self.__common = update
 
     def run(self):
         while True:
-            self.__view.drawAll(self.__players[0].getSymbol(),self.__players[1].getSymbol())
+            self.__view.drawAll()
             self.currentGame()
             for event in pygame.event.get():
-                self.action(event)
+                if self.action(event) == Page.NEXT:
+                    return self.__common
                 self.__view.update(event)
     

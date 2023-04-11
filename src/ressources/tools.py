@@ -102,6 +102,11 @@ class Button:
     def isActive(self):
         return self.__active
 
+    def notActive(self):
+        self.__active = False
+        self.__colorText = "black"
+        self.__colorBg = self.__colorNormal
+
     def draw(self):
         self.drawBg()
         self.drawText()
@@ -128,9 +133,7 @@ class Button:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.__active = True
         else:
-            self.__active = False
-            self.__colorText = "black"
-            self.__colorBg = self.__colorNormal
+            self.notActive()
         self.draw()
 
     def changePos(self, pos):

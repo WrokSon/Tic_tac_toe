@@ -3,21 +3,32 @@ sys.path.append(os.getcwd())
 from ressources.tools import Text, Button
 
 class GameView:
-    def __init__(self,window,imgGrid,players,grid):
+    def __init__(self,common,imgGrid,players,grid):
+        self.__common = common
         self.__imageGrid = imgGrid
         self.__player1 = players[0]
         self.__player2 = players[1]
-        self.__windowTitle = "Tic Tac Toe"
-        self.__window = window
+        self.__windowTitle = "Tic Tac Toe | Game"
+        self.__window = self.__common["window"]
+        self.__fonts = self.__common["fonts"]
+        self.__mode = self.__common["mode"]
         self.__caseClicked = None
         self.__grid = grid
         self.__listWinner = []
         self.__currentSymbol = "O"
-        self.loadFonts()
         self.createAll()
 
     def getValueBtnRestart(self):
         return self.__btnRestart.isActive()
+
+    def getValueBtnHomeGo(self):
+        return self.__btnHomeGo.isActive()
+    
+    def setValueBtnRestart(self):
+        self.__btnRestart.notActive()
+
+    def setValueBtnHomeGo(self):
+        self.__btnHomeGo.notActive()
 
     def setListWinner(self,newList):
         self.__listWinner = newList
@@ -31,12 +42,6 @@ class GameView:
     def setCaseClicked(self, newValue):
         self.__caseClicked = newValue
 
-    def loadFonts(self):
-        self.__fonts = []
-        self.__fonts.append("src/ressources/fonts/full_pack_2025/full Pack 2025.ttf")
-        self.__fonts.append("src/ressources/fonts/freshman/Freshman.ttf")
-        self.__fonts.append("src/ressources/fonts/karmatic_arcade/ka1.ttf")
-
     def doEvent(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN and self.__listWinner == []:
             self.contains(pygame.mouse.get_pos())
@@ -45,11 +50,11 @@ class GameView:
         self.doEvent(event)
         self.updateButtons(event)
     
-    def drawAll(self,symbolPlayer1,symbolPlayer2):
+    def drawAll(self):
         self.__window.blit(self.__imgBg,(0,0))
         pygame.display.set_caption(self.__windowTitle)
         self.drawGrid()
-        self.drawAllTokens(symbolPlayer1,symbolPlayer2)
+        self.drawAllTokens()
         self.drawTexts()
         self.drawProfile()
         self.drawButtons()
@@ -77,17 +82,17 @@ class GameView:
         self.__gridImg = pygame.transform.scale(self.__imageGrid, self.__imgGridDim)
         self.__window.blit(self.__gridImg,self.__imgGridPos)
   
-    def drawAllTokens(self,symbolPlayer1,symbolPlayer2):
+    def drawAllTokens(self):
         grid = self.__grid.getMatrix()
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                if grid[i][j] == symbolPlayer1:
+                if grid[i][j] == self.__player1.getSymbol():
                     if (i,j) in self.__listWinner:
                         self.drawTokensPlayer(self.__player1.getImgWin(),(j,i))
                     else:
                         self.drawTokensPlayer(self.__player1.getImg(),(j,i))
 
-                if grid[i][j] == symbolPlayer2:
+                if grid[i][j] == self.__player2.getSymbol():
                     if (i,j) in self.__listWinner:
                         self.drawTokensPlayer(self.__player2.getImgWin(),(j,i))
                     else:
@@ -174,15 +179,18 @@ class GameView:
         self.createProfilePlayerO()
               
     def createButtons(self):
-        self.__btnRestart = Button(self.__window,"restart",position=(500,340))
+        self.__btnRestart = Button(self.__window,"restart",position=(550,340))
+        self.__btnHomeGo = Button(self.__window,"Home",position=(400,340))
 
     def drawButtons(self):
         self.__btnRestart.draw()
+        self.__btnHomeGo.draw()
 
     def updateButtons(self,event):
         self.__btnRestart.update(event)
+        self.__btnHomeGo.update(event)
 
     def createBg(self):
-        bgImg = self.__profileImg = pygame.image.load(f"src/ressources/images/app/background.jpg")
+        bgImg = self.__common["bg"]
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
