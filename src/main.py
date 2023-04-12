@@ -41,12 +41,12 @@ class App:
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
         self.__shared["bg"] = pygame.image.load("src/ressources/images/app/background.jpg")
         self.__shared["mode"] = ModeGame.HUMAN
-        self.__shared["page"] = Page.GAME
+        self.__shared["page"] = Page.HOME
         self.__shared["fonts"] = self.__fonts
         self.__shared["NamePlayer1"] = "Joueur 1"
         self.__shared["NamePlayer2"] = "Joueur 2"
-        self.__shared["ImagePlayer1"] = pygame.image.load("src/ressources/images/profile/profilePlayerO.jpg")
-        self.__shared["ImagePlayer2"] = pygame.image.load("src/ressources/images/profile/profilePlayerX.jpg")
+        self.__shared["ImagePlayer1"] = pygame.image.load("src/ressources/images/profile/profilePlayerDefault.png")
+        self.__shared["ImagePlayer2"] = pygame.image.load("src/ressources/images/profile/profilePlayerDefault.png")
         self.__shared["CurrentMusic"] = ""
         self.__shared["Music1V1"] = "src/ressources/musics/drum-percussion-beat-118810.mp3"
         self.__shared["MusicGeneral"] = "src/ressources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
