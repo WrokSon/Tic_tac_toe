@@ -126,7 +126,7 @@ class GameController(Controller):
 
     def run(self):
         while True:
-            self.__view.drawAll()
+            if self.__shared["page"] == Page.GAME : self.__view.drawAll()
             self.currentGame()
             for event in pygame.event.get():
                 if self.action(event) == Page.NEXT:

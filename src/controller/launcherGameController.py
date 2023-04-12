@@ -18,25 +18,39 @@ class LauncherGameController(Controller):
         self.__viewOnLine = LauncherGameOnLineView(self.__shared)
 
         if self.__shared["mode"] == ModeGame.HUMAN: self.__view = self.__viewHumain
-        if self.__shared["mode"] == ModeGame.BOT: self.__view = self.__viewSolo
+        if self.__shared["mode"] == ModeGame.BOT: 
+            self.__view = self.__viewSolo
+            self.__dificultySelected = -1
         if self.__shared["mode"] == ModeGame.ONLINE: self.__view = self.__viewOnLine
     
     def action(self,event):
         if event.type == pygame.QUIT:
             sys.exit(0)
 
+        if  self.__shared["mode"] == ModeGame.BOT : self.actionSolo()
+
         if self.__view.getValueBtnHome() or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             self.__shared["page"] = Page.HOME
             self.__view.setValueBtnHome()
             return Page.NEXT
         
-        return self.actionHman()
-
-    def actionHman(self):
         if self.__view.getValueBtnStart():
             if self.__shared["mode"] == ModeGame.HUMAN: self.__shared["page"] = Page.GAME
-            if self.__shared["mode"] == ModeGame.BOT: self.__shared["page"] = Page.GAMESOLO
+            if self.__shared["mode"] == ModeGame.BOT:
+                namePlayer1 = self.__view.getValueTIBPlayer1() 
+                if self.__shared["difficulty"] == "Facile":
+                    self.__shared["difficulty"] = "Difficle"
+                else:
+                    self.__shared["difficulty"] = "Facile"
+                if namePlayer1 != "" : self.__shared["NamePlayer1"] = namePlayer1
+                self.__shared["page"] = Page.GAMESOLO
             if self.__shared["mode"] == ModeGame.ONLINE: self.__shared["page"] = Page.GAMEONLINE
+            self.actionHman()
+            self.__view.setValueBtnStart()
+            return Page.NEXT
+
+    def actionHman(self):
+        if self.__shared["mode"] == ModeGame.HUMAN:
             namePlayer1 = self.__view.getValueTIBPlayer1()
             namePlayer2 = self.__view.getValueTIBPlayer2()
             if namePlayer1 != "" : self.__shared["NamePlayer1"] = namePlayer1
@@ -44,8 +58,14 @@ class LauncherGameController(Controller):
             self.__view.setValueBtnStart()
             self.__view.setValueTIBPlayer1()
             self.__view.setValueTIBPlayer2()
-            return Page.NEXT
-
+    
+    def actionSolo(self):
+        if self.__view.getValueBtnDificulty():
+            if self.__view.getTextBtnDificulty() == "Facile":
+                self.__view.setTextBtnDificulty("Difficle")
+            else:
+                self.__view.setTextBtnDificulty("Facile")
+            self.__view.setValueBtnDificulty()
         
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés

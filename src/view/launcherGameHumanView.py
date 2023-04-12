@@ -66,6 +66,9 @@ class LauncherGameHumanView(View):
     def createTextInputBox(self):
         self.__tIBPlayer1 = TextInputBox(self.__window,(self.__posElemntsX[0],self.__posElemntsY[1]))
         self.__tIBPlayer2 = TextInputBox(self.__window,(self.__posElemntsX[1],self.__posElemntsY[1]))
+        self.__tIBPlayer1.setText(self.__shared["NamePlayer1"])
+        self.__tIBPlayer2.setText(self.__shared["NamePlayer2"])
+
 
     def drawAll(self):
         self.__window.blit(self.__imgBg,(0,0))
@@ -121,4 +124,6 @@ class LauncherGameHumanView(View):
 
     def refreshView(self,newShared):
         self.__shared = newShared
+        self.__tIBPlayer1.setText(self.__shared["NamePlayer1"])
+        self.__tIBPlayer2.setText(self.__shared["NamePlayer2"])
         self.createBg()

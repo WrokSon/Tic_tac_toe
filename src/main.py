@@ -55,6 +55,8 @@ class App:
         self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
         self.__shared["MusicVolume"] = 0.1
+        self.__shared["difficulty"] = "Facile"
+        self.__shared["difficultyList"] = ["Facile","Difficle"]
 
     def loadControllerPages(self):
         self.__controllers = []

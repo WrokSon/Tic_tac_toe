@@ -4,10 +4,7 @@ from tkinter import Tk,filedialog
 
 
 class TextInputBox:
-    AllTextInputBox = []
-
     def __init__(self, window, position=(0, 0), dimension=(300, 50), maximum=10):
-        TextInputBox.AllTextInputBox.append(self)
         self.position = position
         self.__dimension = dimension
         self.__window = window
@@ -76,8 +73,6 @@ class TextInputBox:
         self.draw()
 
     def active(self):
-        for textInputBox in TextInputBox.AllTextInputBox:
-            textInputBox.notActive()
         self.__active = not self.__active
     
     def notActive(self):
@@ -228,7 +223,7 @@ class SaveData:
 class DropDown:
     # taken from :
     # https://stackoverflow.com/questions/59236523/trying-creating-dropdown-menu-pygame-but-got-stuck/65369938#65369938
-    def __init__(self, window, options, color_menu, color_option, position, dimension, text="DropDown"):
+    def __init__(self, window, options, color_menu = ["black","blue"], color_option = ["black","yellow"], position = (0,0), dimension = (140,50), text="DropDown"):
         self.window = window
         self.color_menu = color_menu
         self.color_option = color_option
@@ -255,7 +250,7 @@ class DropDown:
                 msg = self.font.render(text, 1, (255, 255, 255))
                 self.window.blit(msg, msg.get_rect(center=rect.center))
 
-    def update(self, event_list):
+    def update(self, event):
         mpos = pygame.mouse.get_pos()
         self.menu_active = self.rect.collidepoint(mpos)
 
@@ -270,17 +265,22 @@ class DropDown:
         if not self.menu_active and self.active_option == -1:
             self.draw_menu = False
 
-        for event in event_list:
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if self.menu_active:
-                    self.draw_menu = not self.draw_menu
-                elif self.draw_menu and self.active_option >= 0:
-                    self.draw_menu = False
-                    return self.active_option
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.menu_active:
+                self.draw_menu = not self.draw_menu
+            elif self.draw_menu and self.active_option >= 0:
+                self.draw_menu = False
+                return self.active_option
         return -1
 
     def setText(self, text):
         self.main = text
+
+    def getSelected(self):
+        return self.active_option
+
+    def isActive(self):
+        return self.draw_menu
 
     def changePos(self, pos):
         self.position = pos

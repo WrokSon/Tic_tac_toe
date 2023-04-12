@@ -152,6 +152,8 @@ class SettingsController(Controller):
         self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
         self.__shared["MusicVolume"] = 0.1
+        self.__shared["difficultyList"] = ["Facile","Moyen","Difficile"]
+        self.__shared["difficulty"] = "Facile"
         self.__musicOn = True
         self.__view.setBtnTextMusicOn("ACTIVER")
         self.playMusic("MusicGeneral")
