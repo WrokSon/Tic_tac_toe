@@ -1,6 +1,7 @@
 import pygame, sys, os
 from pygame.locals import *
 pygame.init()
+pygame.mixer.init()
 sys.path.append(os.getcwd())
 from model.enums.modeGame import ModeGame
 from model.enums.page import Page
@@ -46,7 +47,12 @@ class App:
         self.__shared["NamePlayer2"] = "Joueur 2"
         self.__shared["ImagePlayer1"] = pygame.image.load("src/ressources/images/profile/profilePlayerO.jpg")
         self.__shared["ImagePlayer2"] = pygame.image.load("src/ressources/images/profile/profilePlayerX.jpg")
-
+        self.__shared["CurrentMusic"] = ""
+        self.__shared["Music1V1"] = "src/ressources/musics/drum-percussion-beat-118810.mp3"
+        self.__shared["MusicGeneral"] = "src/ressources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
+        self.__shared["MusicSolo"] = "src/ressources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
+        self.__shared["MusicOnLine"] = "src/ressources/musics/trap-beat-99191.mp3"
+        self.__shared["MusicOn"] = True
 
     def loadControllerPages(self):
         self.__controllers = []

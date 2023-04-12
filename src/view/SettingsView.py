@@ -95,6 +95,9 @@ class SettingsView:
     def setValueBtnSetMusicOnLine(self):
         self.__btnSetMusicOnLine.notActive()
 
+    def setBtnTextMusicOn(self,newValue):
+        self.__btnSetMusicOn.setText(newValue)
+
     def setValueBtnSetProfileName1(self):
         self.__btnSetProfileName1.notActive()
 
@@ -159,24 +162,8 @@ class SettingsView:
         self.doEventBtnsMusic()
         self.doEventBtnProfile()
 
-    def doEventBtnsMusic(self):
-        if self.__btnSetMusicOn.isActive():
-            if self.__btnSetMusicOn.getText() == "ACTIVER":
-                self.__btnSetMusicOn.setText("DESACTIVER")
-            else:
-                self.__btnSetMusicOn.setText("ACTIVER")
-            self.__btnSetMusicOn.notActive()
-        
-        if self.__btnSetMusic.isActive():
-            self.__fileSlected = self.__fileChooser.selectFile(self.__extensionsMusics)
-        
-        if self.__btnSetMusicOnLine.isActive():
-            self.__fileSlected = self.__fileChooser.selectFile(self.__extensionsMusics)
-        
-        if self.__btnSetMusicHuman.isActive():
-            self.__fileSlected = self.__fileChooser.selectFile(self.__extensionsMusics)
-        
-        if self.__btnSetMusicSolo.isActive():
+    def doEventBtnsMusic(self):  
+        if self.__btnSetMusic.isActive() or self.__btnSetMusicHuman.isActive() or self.__btnSetMusicSolo.isActive() or self.__btnSetMusicOnLine.isActive():
             self.__fileSlected = self.__fileChooser.selectFile(self.__extensionsMusics)
 
     def doEventBtnProfile(self):
@@ -197,7 +184,7 @@ class SettingsView:
 
     def createFileChooser(self):
         self.__extensionsImgs = [("PNG","*.png"),("JPG","*.jpg")]
-        self.__extensionsMusics = [("MP3","*.mp3"),("OVG","*.ovg")]
+        self.__extensionsMusics = [("MP3","*.mp3"),("WAV","*.wav")]
         self.__fileChooser = FileChooser()
 
     def refreshView(self,newShared):
@@ -236,7 +223,7 @@ class SettingsView:
 
     def createButtonsMusic(self):
         btnMusicPosY = [i*45 +115 for i in range(5)]
-        self.__btnSetMusicOn = Button(self.__window,"DESACTIVER",position=(self.__BtnPosX[0],btnMusicPosY[0]),dimension=(100,40),sizeText=20)
+        self.__btnSetMusicOn = Button(self.__window,"ACTIVER",position=(self.__BtnPosX[0],btnMusicPosY[0]),dimension=(100,40),sizeText=20)
         self.__btnSetMusic = Button(self.__window,"G",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[1]))
         self.__btnSetMusicSolo = Button(self.__window,"S",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[2]))
         self.__btnSetMusicHuman = Button(self.__window,"D",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[3]))

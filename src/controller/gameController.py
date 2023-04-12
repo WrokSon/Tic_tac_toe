@@ -6,7 +6,6 @@ from model.player import Player
 from view.gameView import GameView
 from model.enums.modeGame import ModeGame
 from model.enums.page import Page
-pygame.init()
 
 class GameController:
     def __init__(self,shared):
@@ -19,6 +18,13 @@ class GameController:
 
     def setModeGame(self,newMode):
         self.__mode = newMode
+
+    def playMusic(self):
+        if self.__shared["MusicOn"]:
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load(self.__shared["Music1V1"])
+            self.__shared["CurrentMusic"] = self.__shared["Music1V1"]
+            pygame.mixer.music.play(-1,0.0)
 
     #methods
     def createPalyers(self):
@@ -97,6 +103,7 @@ class GameController:
   
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés
+        if self.__shared["Music1V1"] != self.__shared["CurrentMusic"] : self.playMusic()
         self.__shared = sharedUpdate
         self.updatePalyers()
         self.__view.refreshView(self.__shared)

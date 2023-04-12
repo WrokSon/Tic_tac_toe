@@ -1,3 +1,4 @@
-- to add on Settings Game a way to change profile's photo, name.
 - to save the config on file
 - to start the part of AI and if possible the part of OnLine
+- to manage the volume
+music on or off + choose

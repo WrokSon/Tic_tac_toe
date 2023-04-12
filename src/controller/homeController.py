@@ -10,6 +10,13 @@ class HomeComtroller:
         self.__mode = self.__shared["mode"]
         self.__view = HomeWiew(self.__shared)
     
+    def playMusic(self):
+        if self.__shared["MusicOn"]:
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load(self.__shared["MusicGeneral"])
+            pygame.mixer.music.play(-1,0.0)
+            self.__shared["CurrentMusic"] = self.__shared["MusicGeneral"]
+
     def action(self,event):
         if event.type == pygame.QUIT:
             sys.exit(0)
@@ -39,6 +46,7 @@ class HomeComtroller:
 
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés
+        if self.__shared["MusicGeneral"] != self.__shared["CurrentMusic"] : self.playMusic()
         self.__shared = sharedUpdate
         self.__view.refreshView(self.__shared)
 
