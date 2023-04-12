@@ -1,6 +1,6 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
-from ressources.display.tools import Text, Button
+from ressources.display.tools import Text, Button, FileChooser
 
 class GameView:
     def __init__(self,shared,imgGrid,players,grid):
@@ -27,6 +27,9 @@ class GameView:
     def getValueBtnSettings(self):
         return self.__btnSettingsGo.isActive()
 
+    def getValueBtnSaveFile(self):
+        return self.__btnSaveFile.isActive()
+
     def setValueBtnRestart(self):
         self.__btnRestart.notActive()
 
@@ -35,6 +38,9 @@ class GameView:
 
     def setValueBtnSettings(self):
         self.__btnSettingsGo.notActive()
+
+    def setValueBtnSaveFile(self):
+        self.__btnSaveFile.notActive()
 
     def setListWinner(self,newList):
         self.__listWinner = newList
@@ -51,7 +57,7 @@ class GameView:
     def doEvent(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN and self.__listWinner == []:
             self.contains(pygame.mouse.get_pos())
-            
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             if self.__colorTurnText == "white":
                 self.__colorTurnText = "black"
@@ -196,19 +202,24 @@ class GameView:
         self.createProfilePlayerO()
               
     def createButtons(self):
-        self.__btnRestart = Button(self.__window,"restart",position=(610,340),dimension=(100,50))
-        self.__btnHomeGo = Button(self.__window,"Home",position=(500,340),dimension=(100,50))
-        self.__btnSettingsGo = Button(self.__window,"*",position=(390,340),dimension=(100,50))
+        btnPosition = [[i*85+290 for i in range(1,5)],340]
+        dimBtn = (80,50)
+        self.__btnRestart = Button(self.__window,"[R]",position=(btnPosition[0][2],btnPosition[1]),dimension=dimBtn)
+        self.__btnHomeGo = Button(self.__window,"[H]",position=(btnPosition[0][1],btnPosition[1]),dimension=dimBtn)
+        self.__btnSettingsGo = Button(self.__window,"[S]",position=(btnPosition[0][0],btnPosition[1]),dimension=dimBtn)
+        self.__btnSaveFile = Button(self.__window,"\|/",position=(btnPosition[0][3],btnPosition[1]),dimension=dimBtn)
 
     def drawButtons(self):
         self.__btnRestart.draw()
         self.__btnHomeGo.draw()
         self.__btnSettingsGo.draw()
+        self.__btnSaveFile.draw()
 
     def updateButtons(self,event):
         self.__btnRestart.update(event)
         self.__btnHomeGo.update(event)
         self.__btnSettingsGo.update(event)
+        self.__btnSaveFile.update(event)
 
     def createBg(self):
         bgImg = self.__shared["bg"]
@@ -242,4 +253,5 @@ class GameView:
     def refreshView(self,newShared):
         self.__shared = newShared
         self.createBg()
+
 

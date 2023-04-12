@@ -1,6 +1,7 @@
-import pygame, sys, os
+import pygame, sys, os, time
 sys.path.append(os.getcwd())
 from pygame.locals import *
+from datetime import datetime
 from model.grid import Grid
 from model.player import Player
 from view.gameView import GameView
@@ -100,6 +101,10 @@ class GameController:
             self.__shared["page"] = Page.HOME
             self.__view.setValueBtnHomeGo()
             return Page.NEXT
+        
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_s) or self.__view.getValueBtnSaveFile():
+            self.__view.setValueBtnSaveFile()
+            self.takeScreenShot()
   
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés
@@ -123,3 +128,7 @@ class GameController:
                     return self.__shared
                 self.__view.update(event)
 
+    def takeScreenShot(self):
+        time = str(datetime.now())[12:13] +"-"+ str(datetime.now())[14:16] + "-" + str(datetime.now())[17:19]
+        name = "screenchot"+str(datetime.now())[:10]+time+".png"
+        pygame.image.save (self.__shared["window"], "src/screenchots/"+name)

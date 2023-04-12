@@ -41,7 +41,7 @@ class App:
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
         self.__shared["bg"] = pygame.image.load("src/ressources/images/app/background.jpg")
         self.__shared["mode"] = ModeGame.HUMAN
-        self.__shared["page"] = Page.HOME
+        self.__shared["page"] = Page.GAME
         self.__shared["fonts"] = self.__fonts
         self.__shared["NamePlayer1"] = "Joueur 1"
         self.__shared["NamePlayer2"] = "Joueur 2"

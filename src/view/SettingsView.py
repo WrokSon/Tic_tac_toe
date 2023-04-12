@@ -119,12 +119,12 @@ class SettingsView:
         pygame.display.update()
     
     def createButtons(self):
-        self.__dimBtns = (40,40)
+        self.__dimBtns = (45,45)
         self.__BtnPosX = [260,650]
-        self.__btnDefault = Button(self.__window,"DE",position=(660,350),dimension=self.__dimBtns)
-        self.__btnHomeGo = Button(self.__window,"<-",position=(10,10),dimension=self.__dimBtns)
-        self.__btnGameGo = Button(self.__window,"*",position=(10,340),dimension=self.__dimBtns)
-        self.__btnChangBg = Button(self.__window,"CB",position=(self.__BtnPosX[0],70),dimension=self.__dimBtns)
+        self.__btnDefault = Button(self.__window,"D",position=(660,350),dimension=self.__dimBtns)
+        self.__btnHomeGo = Button(self.__window,"-",position=(10,10),dimension=self.__dimBtns)
+        self.__btnGameGo = Button(self.__window,"+",position=(10,340),dimension=self.__dimBtns)
+        self.__btnChangBg = Button(self.__window,"F",position=(self.__BtnPosX[0],62),dimension=self.__dimBtns)
         self.createButtonsMusic()
         self.createButtonsProfile()
 
@@ -197,7 +197,7 @@ class SettingsView:
         self.__fontText = self.__shared["fonts"][1]
         self.__sizeText = 15
         self.__tTitle = Text(self.__window,"Parametres",(170,10),self.__colorText[1],50)
-        self.__tChangBg = Text(self.__window,"Changer le fond d'ecran",(self.__tPosX[0],80),self.__colorText[1],self.__sizeText)
+        self.__tChangBg = Text(self.__window,"Changer le fond d'ecran",(self.__tPosX[0],75),self.__colorText[1],self.__sizeText)
         self.__tTitle.setFont(self.__shared["fonts"][3])
         self.__tChangBg.setFont(self.__fontText)
         self.createTextsMusic()
@@ -222,8 +222,8 @@ class SettingsView:
         self.__tIBChangeValue.update(event)
 
     def createButtonsMusic(self):
-        btnMusicPosY = [i*45 +115 for i in range(5)]
-        self.__btnSetMusicOn = Button(self.__window,"ACTIVER",position=(self.__BtnPosX[0],btnMusicPosY[0]),dimension=(100,40),sizeText=20)
+        btnMusicPosY = [i*47 +105 for i in range(5)]
+        self.__btnSetMusicOn = Button(self.__window,"ACTIVER",position=(self.__BtnPosX[0]-30,btnMusicPosY[0]+5),dimension=(100,40),sizeText=20)
         self.__btnSetMusic = Button(self.__window,"G",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[1]))
         self.__btnSetMusicSolo = Button(self.__window,"S",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[2]))
         self.__btnSetMusicHuman = Button(self.__window,"D",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[3]))
@@ -244,7 +244,7 @@ class SettingsView:
         self.__btnSetMusicOnLine.update(event)
 
     def createTextsMusic(self):
-        tMusicPosY = [i*45 +125 for i in range(5)]
+        tMusicPosY = [i*47 +125 for i in range(5)]
         self.__tSetMusicOn = Text(self.__window,"Musique",(self.__tPosX[0],tMusicPosY[0]),self.__colorText[1],self.__sizeText)
         self.__tSetMusic = Text(self.__window,"Changer la musique general",(self.__tPosX[0],tMusicPosY[1]),self.__colorText[1],self.__sizeText)
         self.__tSetMusicSolo = Text(self.__window,"Changer la musique Solo",(self.__tPosX[0],tMusicPosY[2]),self.__colorText[1],self.__sizeText)
@@ -271,7 +271,7 @@ class SettingsView:
         self.__tSetMusicOnLine.setColor(self.__colorText[1])
 
     def createButtonsProfile(self):
-        btnProfilePosY = [i*45 +100 for i in range(5)]
+        btnProfilePosY = [i*50 +100 for i in range(5)]
         self.__btnSetProfileName1 = Button(self.__window,"N1",position=(self.__BtnPosX[1],btnProfilePosY[0]),dimension=self.__dimBtns)
         self.__btnSetProfileName2 = Button(self.__window,"N2",position=(self.__BtnPosX[1],btnProfilePosY[1]),dimension=self.__dimBtns)
         self.__btnSetProfileImage1 = Button(self.__window,"P1",position=(self.__BtnPosX[1],btnProfilePosY[2]),dimension=self.__dimBtns)
@@ -290,7 +290,7 @@ class SettingsView:
         self.__btnSetProfileImage2.update(event)
 
     def createTextsProfile(self):
-        tProfilePosY = [i*45 +115 for i in range(4)]
+        tProfilePosY = [i*50 +115 for i in range(4)]
         self.__tSetProfileName1 = Text(self.__window,"Changer le nom du joueur 1",(self.__tPosX[1],tProfilePosY[0]),self.__colorText[1],self.__sizeText)
         self.__tSetProfileName2 = Text(self.__window,"Changer le nom du joueur 2",(self.__tPosX[1],tProfilePosY[1]),self.__colorText[1],self.__sizeText)
         self.__tSetProfileImage1 = Text(self.__window,"Changer l'image du joueur 1",(self.__tPosX[1],tProfilePosY[2]),self.__colorText[1],self.__sizeText)
