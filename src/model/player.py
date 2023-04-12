@@ -16,9 +16,9 @@ class Player:
             self.__symbol = "X"
             Player.fistPlayer = not Player.fistPlayer
             self.__color = "blue"
-        self.__profileImg = profileImage
-        self.__image = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}.jpg")
-        self.__imageWin = pygame.image.load(f"src/ressources/images/game/player{self.__symbol}win.jpg")
+        self.__profileImg = pygame.image.load(profileImage)
+        self.__image = pygame.image.load(f"src/resources/images/game/player{self.__symbol}.jpg")
+        self.__imageWin = pygame.image.load(f"src/resources/images/game/player{self.__symbol}win.jpg")
     
     #Getters and Setters
     def getName(self):
@@ -43,7 +43,7 @@ class Player:
         return self.__profileImg
     
     def setProfileImg(self, newProfile):
-        self.__profileImg = newProfile
+        self.__profileImg = pygame.image.load(newProfile)
     
     def getImg(self):
         return self.__image

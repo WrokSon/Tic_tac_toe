@@ -14,7 +14,7 @@ class App:
     def __init__(self):
         self.__dimWindow = (720,400)  
         self.loadAll()
-        self.__icon = pygame.image.load("src/ressources/images/app/icon.ico")
+        self.__icon = pygame.image.load("src/resources/images/app/icon.ico")
         pygame.display.set_icon(self.__icon)
         self.__currentPage = self.__shared["page"].value
          
@@ -26,10 +26,10 @@ class App:
 
     def loadFonts(self):
         self.__fonts = []
-        self.__fonts.append("src/ressources/fonts/full_pack_2025/full Pack 2025.ttf")
-        self.__fonts.append("src/ressources/fonts/freshman/Freshman.ttf")
-        self.__fonts.append("src/ressources/fonts/karmatic_arcade/ka1.ttf")
-        self.__fonts.append("src/ressources/fonts/super_mario_256/SuperMario256.ttf")
+        self.__fonts.append("src/resources/fonts/full_pack_2025/full Pack 2025.ttf")
+        self.__fonts.append("src/resources/fonts/freshman/Freshman.ttf")
+        self.__fonts.append("src/resources/fonts/karmatic_arcade/ka1.ttf")
+        self.__fonts.append("src/resources/fonts/super_mario_256/SuperMario256.ttf")
 
     def loadAll(self):
         self.loadFonts()
@@ -39,19 +39,19 @@ class App:
     def loadCommon(self):
         self.__shared = {}
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
-        self.__shared["bg"] = pygame.image.load("src/ressources/images/app/background.jpg")
+        self.__shared["bg"] = "src/resources/images/app/background.jpg"
         self.__shared["mode"] = ModeGame.HUMAN
         self.__shared["page"] = Page.HOME
         self.__shared["fonts"] = self.__fonts
         self.__shared["NamePlayer1"] = "Joueur 1"
         self.__shared["NamePlayer2"] = "Joueur 2"
-        self.__shared["ImagePlayer1"] = pygame.image.load("src/ressources/images/profile/profilePlayerDefault.png")
-        self.__shared["ImagePlayer2"] = pygame.image.load("src/ressources/images/profile/profilePlayerDefault.png")
+        self.__shared["ImagePlayer1"] = "src/resources/images/profile/profilePlayerDefault.png"
+        self.__shared["ImagePlayer2"] = "src/resources/images/profile/profilePlayerDefault.png"
         self.__shared["CurrentMusic"] = ""
-        self.__shared["Music1V1"] = "src/ressources/musics/drum-percussion-beat-118810.mp3"
-        self.__shared["MusicGeneral"] = "src/ressources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
-        self.__shared["MusicSolo"] = "src/ressources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
-        self.__shared["MusicOnLine"] = "src/ressources/musics/trap-beat-99191.mp3"
+        self.__shared["Music1V1"] = "src/resources/musics/drum-percussion-beat-118810.mp3"
+        self.__shared["MusicGeneral"] = "src/resources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
+        self.__shared["MusicSolo"] = "src/resources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
+        self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
 
     def loadControllerPages(self):

@@ -108,7 +108,7 @@ class SettingsController:
     def actionBtnsProfileImage(self,value):
         img = self.__view.getFileSelected()
         if img != "":
-            self.__shared[value] = pygame.image.load(img)
+            self.__shared[value] = img
             self.__view.refreshView(self.__shared)
         
     def update(self,sharedUpdate):
@@ -117,15 +117,15 @@ class SettingsController:
         self.__view.refreshView(self.__shared)
 
     def default(self):
-        self.__shared["bg"] = pygame.image.load("src/ressources/images/app/background.jpg")
+        self.__shared["bg"] = "src/resources/images/app/background.jpg"
         self.__shared["NamePlayer1"] = "Joueur 1"
         self.__shared["NamePlayer2"] = "Joueur 2"
-        self.__shared["ImagePlayer1"] = pygame.image.load("src/ressources/images/profile/profilePlayerO.jpg")
-        self.__shared["ImagePlayer2"] = pygame.image.load("src/ressources/images/profile/profilePlayerX.jpg")
-        self.__shared["Music1V1"] = "src/ressources/musics/drum-percussion-beat-118810.mp3"
-        self.__shared["MusicGeneral"] = "src/ressources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
-        self.__shared["MusicSolo"] = "src/ressources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
-        self.__shared["MusicOnLine"] = "src/ressources/musics/trap-beat-99191.mp3"
+        self.__shared["ImagePlayer1"] = "src/resources/images/profile/profilePlayerDefault.png"
+        self.__shared["ImagePlayer2"] = "src/resources/images/profile/profilePlayerDefault.png"
+        self.__shared["Music1V1"] = "src/resources/musics/drum-percussion-beat-118810.mp3"
+        self.__shared["MusicGeneral"] = "src/resources/musics/hitting-hard-cinematic-rock-trailer-142396.mp3"
+        self.__shared["MusicSolo"] = "src/resources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
+        self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
         self.__musicOn = True
         self.__view.setBtnTextMusicOn("ACTIVER")

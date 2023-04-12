@@ -1,7 +1,7 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
-from ressources.display.tools import Text, Button
+from resources.tools.toolsDisplayable import Text, Button
 
 pygame.init()
 
@@ -36,7 +36,7 @@ class UnavailableView:
         self.__btnHomeGo.update(event)
 
     def createBg(self):
-        bgImg = self.__shared["bg"]
+        bgImg = pygame.image.load(self.__shared["bg"])
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
     def refreshView(self,newShared):

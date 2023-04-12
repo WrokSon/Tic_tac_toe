@@ -1,7 +1,7 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
-from ressources.display.tools import Text,TextInputBox, Button, FileChooser
+from resources.tools.toolsDisplayable import Text, Button,TextInputBox, FileChooser
 
 pygame.init()
 
@@ -179,12 +179,12 @@ class SettingsView:
         self.updateButtonsProfile(event)
 
     def createBg(self):
-        bgImg = self.__shared["bg"]
+        bgImg = pygame.image.load(self.__shared["bg"])
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
     def createFileChooser(self):
         self.__extensionsImgs = [("PNG","*.png"),("JPG","*.jpg")]
-        self.__extensionsMusics = [("MP3","*.mp3"),("WAV","*.wav")]
+        self.__extensionsMusics = [("MP3","*.mp3"),("WAV","*.wav"),("OGG","*.ogg")]
         self.__fileChooser = FileChooser()
 
     def refreshView(self,newShared):

@@ -7,7 +7,7 @@ class Grid:
         self.__nbRow = 3
         self.__empty = "."
         self.__matrix = [[self.__empty for i in range(self.__nbCol)] for j in range(self.__nbRow)]
-        self.__image = pygame.image.load("src/ressources/images/game/grid.png")
+        self.__image = pygame.image.load("src/resources/images/game/grid.png")
     
     #Getters
     def getNbCol(self):

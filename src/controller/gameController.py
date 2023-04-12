@@ -129,6 +129,6 @@ class GameController:
                 self.__view.update(event)
 
     def takeScreenShot(self):
-        time = str(datetime.now())[12:13] +"-"+ str(datetime.now())[14:16] + "-" + str(datetime.now())[17:19]
-        name = "screenchot"+str(datetime.now())[:10]+time+".png"
-        pygame.image.save (self.__shared["window"], "src/screenchots/"+name)
+        time = str(datetime.now())[11:13] +"-"+ str(datetime.now())[14:16] + "-" + str(datetime.now())[17:19]
+        name = "screenshot_"+str(datetime.now())[:10]+"_"+time+".png"
+        pygame.image.save (self.__shared["window"], "screenshots/"+name)

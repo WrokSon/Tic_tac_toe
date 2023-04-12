@@ -1,6 +1,6 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
-from ressources.display.tools import Text, Button, FileChooser
+from resources.tools.toolsDisplayable import Text, Button
 
 class GameView:
     def __init__(self,shared,imgGrid,players,grid):
@@ -222,7 +222,7 @@ class GameView:
         self.__btnSaveFile.update(event)
 
     def createBg(self):
-        bgImg = self.__shared["bg"]
+        bgImg = pygame.image.load(self.__shared["bg"])
         self.__imgBg = pygame.transform.scale(bgImg, pygame.display.get_surface().get_size())
 
     def createScoreBar(self):
