@@ -1,11 +1,12 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
+from controller.controller import Controller
 from model.enums.page import Page
 from view.unavailableView import UnavailableView
 pygame.init()
 
-class UnavailableController:
+class UnavailableController(Controller):
     def __init__(self,shared):
         self.__shared = shared
         self.__view = UnavailableView(self.__shared)

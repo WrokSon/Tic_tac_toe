@@ -4,7 +4,11 @@ from enum import Enum
 
 class Page(Enum):
     NEXT = -1
-    HOME = 0
-    GAME = 1
-    SETTINGS = 2
-    UNAVAILABLE = 3
+    PRESENTATION = 0
+    HOME = 1
+    LAUNCHERGAME = 2
+    GAME = 3
+    GAMESOLO = 4
+    GAMEONLINE = 4
+    SETTINGS = 5
+    UNAVAILABLE = 4

@@ -1,11 +1,13 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
+from controller.controller import Controller
 from model.enums.page import Page
+from model.enums.modeGame import ModeGame
 from view.SettingsView import SettingsView
 pygame.init()
 
-class SettingsController:
+class SettingsController(Controller):
     def __init__(self,shared):
         self.__shared = shared
         self.__view = SettingsView(self.__shared)
@@ -25,15 +27,17 @@ class SettingsController:
             self.__view.setBackground(self.__view.getFileSelected())
             self.__view.setValueBtnChangeBackgound()
 
-        if self.__view.getValueBtnHome():
+        if self.__view.getValueBtnHome() or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             self.__shared = self.__view.getShared()
             self.__shared["page"] = Page.HOME
             self.__view.setValueBtnHome()
             return Page.NEXT
             
-        if self.__view.getValueBtnGame():
+        if self.__view.getValueBtnGame() and self.__shared["mode"] != ModeGame.NOMODE:
             self.__shared = self.__view.getShared()
-            self.__shared["page"] = Page.GAME
+            if self.__shared["mode"] == ModeGame.HUMAN: self.__shared["page"] = Page.GAME
+            if self.__shared["mode"] == ModeGame.BOT: self.__shared["page"] = Page.GAMESOLO
+            if self.__shared["mode"] == ModeGame.ONLINE: self.__shared["page"] = Page.GAMEONLINE
             self.__view.setValueBtnGame()
             return Page.NEXT
 

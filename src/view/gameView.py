@@ -1,8 +1,9 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
+from view.view import View
 from resources.tools.toolsDisplayable import Text, Button
 
-class GameView:
+class GameView(View):
     def __init__(self,shared,imgGrid,players,grid):
         self.__shared = shared
         self.__imageGrid = imgGrid

@@ -2,13 +2,14 @@ import pygame, sys, os, time
 sys.path.append(os.getcwd())
 from pygame.locals import *
 from datetime import datetime
+from controller.controller import Controller
 from model.grid import Grid
 from model.player import Player
 from view.gameView import GameView
 from model.enums.modeGame import ModeGame
 from model.enums.page import Page
 
-class GameController:
+class GameController(Controller):
     def __init__(self,shared):
         self.__shared = shared
         self.__mode = self.__shared["mode"]
@@ -30,9 +31,10 @@ class GameController:
 
     #methods
     def createPalyers(self):
-        if self.__mode == ModeGame.HUMAN:
-            self.__players = [Player(self.__shared["NamePlayer1"],self.__shared["ImagePlayer1"]),
+        self.__playersHummain = [Player(self.__shared["NamePlayer1"],self.__shared["ImagePlayer1"]),
                               Player(self.__shared["NamePlayer2"],self.__shared["ImagePlayer2"])]
+        if self.__mode == ModeGame.HUMAN: self.__players = self.__playersHummain
+        if self.__mode == ModeGame.NOMODE: self.__players = self.__playersHummain #par default
         self.__currentPalyer = 0
 
     def changeCurrentPlayer(self):
@@ -111,6 +113,8 @@ class GameController:
         #pour mettre a jour le des infos partagés
         if self.__shared["Music1V1"] != self.__shared["CurrentMusic"] : self.playMusic()
         self.__shared = sharedUpdate
+        if self.__mode == ModeGame.HUMAN: self.__players = self.__playersHummain
+        if self.__mode == ModeGame.NOMODE: self.__players = self.__playersHummain #par default
         self.updatePalyers()
         self.__view.refreshView(self.__shared)
 

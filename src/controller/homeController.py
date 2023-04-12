@@ -1,10 +1,11 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
+from controller.controller import Controller
 from model.enums.modeGame import ModeGame
 from model.enums.page import Page
 from view.homeView import HomeWiew
 
-class HomeComtroller:
+class HomeComtroller(Controller):
     def __init__(self,shared):
         self.__shared = shared
         self.__mode = self.__shared["mode"]
@@ -23,19 +24,19 @@ class HomeComtroller:
             sys.exit(0)
         
         if self.__view.getValueBtnBotGo():
-            self.__shared["page"] = Page.UNAVAILABLE
+            self.__shared["page"] = Page.LAUNCHERGAME
             self.__shared["mode"] = ModeGame.BOT
             self.__view.setValueBtnBotGo()
             return Page.NEXT
         
         if self.__view.getValueBtnHumanGo():
-            self.__shared["page"] = Page.GAME
+            self.__shared["page"] = Page.LAUNCHERGAME
             self.__shared["mode"] = ModeGame.HUMAN
             self.__view.setValueBtnHumanGo()
             return Page.NEXT
         
         if self.__view.getValueBtnOnLine():
-            self.__shared["page"] = Page.UNAVAILABLE
+            self.__shared["page"] = Page.LAUNCHERGAME
             self.__shared["mode"] = ModeGame.ONLINE
             self.__view.setValueBtnOnLine()
             return Page.NEXT
@@ -49,6 +50,7 @@ class HomeComtroller:
         #pour mettre a jour le des infos partagés
         if self.__shared["MusicGeneral"] != self.__shared["CurrentMusic"] : self.playMusic()
         self.__shared = sharedUpdate
+        self.__shared["mode"] = ModeGame.NOMODE
         self.__view.refreshView(self.__shared)
 
     def run(self):

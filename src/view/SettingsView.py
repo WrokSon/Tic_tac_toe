@@ -1,11 +1,13 @@
 import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
+from view.view import View
+from model.enums.modeGame import ModeGame
 from resources.tools.toolsDisplayable import Text, Button,TextInputBox, FileChooser
 
 pygame.init()
 
-class SettingsView:
+class SettingsView(View):
     def __init__(self,shared):
         self.__shared = shared
         self.__windowTitle = "Tic Tac Toe | Parametres"
@@ -68,7 +70,7 @@ class SettingsView:
 
     def setBackground(self,newBg):
         if newBg != "":
-            self.__shared["bg"] = pygame.image.load(newBg)
+            self.__shared["bg"] = newBg
             self.createBg()
 
     def setValueBtnChangeBackgound(self):
@@ -147,7 +149,7 @@ class SettingsView:
 
     def drawButtons(self):
         self.__btnHomeGo.draw()
-        self.__btnGameGo.draw()
+        if self.__shared["mode"] != ModeGame.NOMODE : self.__btnGameGo.draw()
         self.__btnChangBg.draw()
         self.__btnDefault.draw()
         self.drawButtonsMusic()

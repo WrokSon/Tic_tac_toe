@@ -8,6 +8,7 @@ from model.enums.page import Page
 from controller.gameController import GameController
 from controller.homeController import HomeComtroller
 from controller.SettingsController import SettingsController
+from controller.launcherGameController import LauncherGameController
 from controller.unavailableController import UnavailableController
 
 class App:
@@ -40,7 +41,7 @@ class App:
         self.__shared = {}
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
         self.__shared["bg"] = "src/resources/images/app/background.jpg"
-        self.__shared["mode"] = ModeGame.HUMAN
+        self.__shared["mode"] = ModeGame.NOMODE
         self.__shared["page"] = Page.HOME
         self.__shared["fonts"] = self.__fonts
         self.__shared["NamePlayer1"] = "Joueur 1"
@@ -57,10 +58,12 @@ class App:
 
     def loadControllerPages(self):
         self.__controllers = []
-        self.__controllers.append(HomeComtroller(self.__shared))
-        self.__controllers.append(GameController(self.__shared))
-        self.__controllers.append(SettingsController(self.__shared))
         self.__controllers.append(UnavailableController(self.__shared))
+        self.__controllers.append(HomeComtroller(self.__shared))
+        self.__controllers.append(LauncherGameController(self.__shared))
+        self.__controllers.append(GameController(self.__shared))
+        self.__controllers.append(UnavailableController(self.__shared))
+        self.__controllers.append(SettingsController(self.__shared))
 
 if __name__ == "__main__":
     App().run()

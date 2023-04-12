@@ -4,7 +4,10 @@ from tkinter import Tk,filedialog
 
 
 class TextInputBox:
+    AllTextInputBox = []
+
     def __init__(self, window, position=(0, 0), dimension=(300, 50), maximum=10):
+        TextInputBox.AllTextInputBox.append(self)
         self.position = position
         self.__dimension = dimension
         self.__window = window
@@ -12,7 +15,7 @@ class TextInputBox:
         self.__active = False
         self.__maxC = maximum
         self.__alphabet = string.ascii_letters + string.digits + string.punctuation + " "
-        self.__length = len(self.__text)
+        self.__length = 0
         self.__animationTime = pygame.time.get_ticks()
         self.rect = pygame.Rect(self.position, self.__dimension)
 
@@ -59,6 +62,8 @@ class TextInputBox:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.contains(pygame.mouse.get_pos()):
                 self.active()
+            else:
+                self.notActive()
         if event.type == pygame.KEYDOWN and self.__active:
             if event.key == K_BACKSPACE:
                 self.__text = self.__text[:-1]
@@ -71,7 +76,12 @@ class TextInputBox:
         self.draw()
 
     def active(self):
+        for textInputBox in TextInputBox.AllTextInputBox:
+            textInputBox.notActive()
         self.__active = not self.__active
+    
+    def notActive(self):
+        self.__active = False
 
     def getText(self):
         return self.__text
@@ -211,7 +221,6 @@ class SaveData:
         return self.__data
 
     def clear(self):
-
         with open(self.__name, 'w', encoding="utf-8") as file:
             pass
 
