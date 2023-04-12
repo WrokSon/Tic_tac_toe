@@ -84,7 +84,7 @@ class TextInputBox:
         self.position = pos
         self.rect = pygame.Rect(self.position, self.__dimension)
 
-
+#set the button when that active, that makes buggs when you don't do that
 class Button:
     def __init__(self, window, text="Button", hoverColor=(200, 190, 250), color=(220, 220, 220), position=(0, 0),
                  dimension=(140, 50),sizeText = 40):

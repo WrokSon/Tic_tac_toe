@@ -53,6 +53,7 @@ class App:
         self.__shared["MusicSolo"] = "src/resources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
         self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
+        self.__shared["MusicVolume"] = 0.1
 
     def loadControllerPages(self):
         self.__controllers = []

@@ -1,5 +1,5 @@
 - to save the config on file
 - to make the part of AI 
 - to make the part of OnLine
-- to manage the volume
+- to make the introduce screen
 - to design ico buttons

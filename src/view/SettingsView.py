@@ -33,6 +33,9 @@ class SettingsView:
     def getValueBtnSetMusicOn(self):
         return self.__btnSetMusicOn.isActive()
     
+    def getValueBtnSetMusicVolume(self):
+        return self.__btnSetMusicVolume.isActive()
+    
     def getValueBtnSetMusic(self):
         return self.__btnSetMusic.isActive()
     
@@ -83,6 +86,9 @@ class SettingsView:
     def setValueBtnSetMusicOn(self):
         self.__btnSetMusicOn.notActive()
     
+    def setValueBtnSetMusicVolume(self):
+        self.__btnSetMusicVolume.notActive()
+    
     def setValueBtnSetMusic(self):
         self.__btnSetMusic.notActive()
     
@@ -97,6 +103,9 @@ class SettingsView:
 
     def setBtnTextMusicOn(self,newValue):
         self.__btnSetMusicOn.setText(newValue)
+
+    def setBtnTextMusicVolume(self,newValue):
+        self.__btnSetMusicVolume.setText(newValue)
 
     def setValueBtnSetProfileName1(self):
         self.__btnSetProfileName1.notActive()
@@ -124,7 +133,7 @@ class SettingsView:
         self.__btnDefault = Button(self.__window,"D",position=(660,350),dimension=self.__dimBtns)
         self.__btnHomeGo = Button(self.__window,"-",position=(10,10),dimension=self.__dimBtns)
         self.__btnGameGo = Button(self.__window,"+",position=(10,340),dimension=self.__dimBtns)
-        self.__btnChangBg = Button(self.__window,"F",position=(self.__BtnPosX[0],62),dimension=self.__dimBtns)
+        self.__btnChangBg = Button(self.__window,"F",position=(self.__BtnPosX[1],60),dimension=self.__dimBtns)
         self.createButtonsMusic()
         self.createButtonsProfile()
 
@@ -197,7 +206,7 @@ class SettingsView:
         self.__fontText = self.__shared["fonts"][1]
         self.__sizeText = 15
         self.__tTitle = Text(self.__window,"Parametres",(170,10),self.__colorText[1],50)
-        self.__tChangBg = Text(self.__window,"Changer le fond d'ecran",(self.__tPosX[0],75),self.__colorText[1],self.__sizeText)
+        self.__tChangBg = Text(self.__window,"Changer le fond d'ecran",(self.__tPosX[1],75),self.__colorText[1],self.__sizeText)
         self.__tTitle.setFont(self.__shared["fonts"][3])
         self.__tChangBg.setFont(self.__fontText)
         self.createTextsMusic()
@@ -222,15 +231,17 @@ class SettingsView:
         self.__tIBChangeValue.update(event)
 
     def createButtonsMusic(self):
-        btnMusicPosY = [i*47 +105 for i in range(5)]
-        self.__btnSetMusicOn = Button(self.__window,"ACTIVER",position=(self.__BtnPosX[0]-30,btnMusicPosY[0]+5),dimension=(100,40),sizeText=20)
-        self.__btnSetMusic = Button(self.__window,"G",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[1]))
-        self.__btnSetMusicSolo = Button(self.__window,"S",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[2]))
-        self.__btnSetMusicHuman = Button(self.__window,"D",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[3]))
-        self.__btnSetMusicOnLine = Button(self.__window,"E",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[4]))
+        btnMusicPosY = [i*47 +55 for i in range(6)]
+        self.__btnSetMusicOn = Button(self.__window,"ACTIVER",position=(self.__BtnPosX[0]-27,btnMusicPosY[0]+10),dimension=(100,40),sizeText=20)
+        self.__btnSetMusicVolume = Button(self.__window,"10%",position=(self.__BtnPosX[0]-17,btnMusicPosY[1]+5),dimension=(80,40))
+        self.__btnSetMusic = Button(self.__window,"G",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[2]))
+        self.__btnSetMusicSolo = Button(self.__window,"S",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[3]))
+        self.__btnSetMusicHuman = Button(self.__window,"D",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[4]))
+        self.__btnSetMusicOnLine = Button(self.__window,"E",dimension=self.__dimBtns,position=(self.__BtnPosX[0],btnMusicPosY[5]))
 
     def drawButtonsMusic(self):
         self.__btnSetMusicOn.draw()
+        self.__btnSetMusicVolume.draw()
         self.__btnSetMusic.draw()
         self.__btnSetMusicSolo.draw()
         self.__btnSetMusicHuman.draw()
@@ -238,20 +249,23 @@ class SettingsView:
    
     def updateButtonsMusic(self,event):
         self.__btnSetMusicOn.update(event)
+        self.__btnSetMusicVolume.update(event)
         self.__btnSetMusic.update(event)
         self.__btnSetMusicSolo.update(event)
         self.__btnSetMusicHuman.update(event)
         self.__btnSetMusicOnLine.update(event)
 
     def createTextsMusic(self):
-        tMusicPosY = [i*47 +125 for i in range(5)]
+        tMusicPosY = [i*47 +70 for i in range(6)]
         self.__tSetMusicOn = Text(self.__window,"Musique",(self.__tPosX[0],tMusicPosY[0]),self.__colorText[1],self.__sizeText)
-        self.__tSetMusic = Text(self.__window,"Changer la musique general",(self.__tPosX[0],tMusicPosY[1]),self.__colorText[1],self.__sizeText)
-        self.__tSetMusicSolo = Text(self.__window,"Changer la musique Solo",(self.__tPosX[0],tMusicPosY[2]),self.__colorText[1],self.__sizeText)
-        self.__tSetMusicHuman = Text(self.__window,"Changer la musique 1V1",(self.__tPosX[0],tMusicPosY[3]),self.__colorText[1],self.__sizeText)
-        self.__tSetMusicOnLine = Text(self.__window,"Changer la musique en ligne",(self.__tPosX[0],tMusicPosY[4]),self.__colorText[1],self.__sizeText)
+        self.__tSetMusicVolume = Text(self.__window,"Volume",(self.__tPosX[0],tMusicPosY[1]),self.__colorText[1],self.__sizeText)
+        self.__tSetMusic = Text(self.__window,"Changer la musique general",(self.__tPosX[0],tMusicPosY[2]),self.__colorText[1],self.__sizeText)
+        self.__tSetMusicSolo = Text(self.__window,"Changer la musique Solo",(self.__tPosX[0],tMusicPosY[3]),self.__colorText[1],self.__sizeText)
+        self.__tSetMusicHuman = Text(self.__window,"Changer la musique 1V1",(self.__tPosX[0],tMusicPosY[4]),self.__colorText[1],self.__sizeText)
+        self.__tSetMusicOnLine = Text(self.__window,"Changer la musique en ligne",(self.__tPosX[0],tMusicPosY[5]),self.__colorText[1],self.__sizeText)
 
         self.__tSetMusicOn.setFont(self.__fontText)
+        self.__tSetMusicVolume.setFont(self.__fontText)
         self.__tSetMusic.setFont(self.__fontText)
         self.__tSetMusicSolo.setFont(self.__fontText)
         self.__tSetMusicHuman.setFont(self.__fontText)
@@ -259,19 +273,21 @@ class SettingsView:
 
     def drawTextMusic(self):
         self.__tSetMusicOn.draw()
+        self.__tSetMusicVolume.draw()
         self.__tSetMusic.draw()
         self.__tSetMusicSolo.draw()
         self.__tSetMusicHuman.draw()
         self.__tSetMusicOnLine.draw()
 
         self.__tSetMusicOn.setColor(self.__colorText[1])
+        self.__tSetMusicVolume.setColor(self.__colorText[1])
         self.__tSetMusic.setColor(self.__colorText[1])
         self.__tSetMusicSolo.setColor(self.__colorText[1])
         self.__tSetMusicHuman.setColor(self.__colorText[1])
         self.__tSetMusicOnLine.setColor(self.__colorText[1])
 
     def createButtonsProfile(self):
-        btnProfilePosY = [i*50 +100 for i in range(5)]
+        btnProfilePosY = [i*50 +110 for i in range(5)]
         self.__btnSetProfileName1 = Button(self.__window,"N1",position=(self.__BtnPosX[1],btnProfilePosY[0]),dimension=self.__dimBtns)
         self.__btnSetProfileName2 = Button(self.__window,"N2",position=(self.__BtnPosX[1],btnProfilePosY[1]),dimension=self.__dimBtns)
         self.__btnSetProfileImage1 = Button(self.__window,"P1",position=(self.__BtnPosX[1],btnProfilePosY[2]),dimension=self.__dimBtns)
@@ -290,7 +306,7 @@ class SettingsView:
         self.__btnSetProfileImage2.update(event)
 
     def createTextsProfile(self):
-        tProfilePosY = [i*50 +115 for i in range(4)]
+        tProfilePosY = [i*50 +125 for i in range(4)]
         self.__tSetProfileName1 = Text(self.__window,"Changer le nom du joueur 1",(self.__tPosX[1],tProfilePosY[0]),self.__colorText[1],self.__sizeText)
         self.__tSetProfileName2 = Text(self.__window,"Changer le nom du joueur 2",(self.__tPosX[1],tProfilePosY[1]),self.__colorText[1],self.__sizeText)
         self.__tSetProfileImage1 = Text(self.__window,"Changer l'image du joueur 1",(self.__tPosX[1],tProfilePosY[2]),self.__colorText[1],self.__sizeText)

@@ -18,6 +18,7 @@ class SettingsController:
         if self.__view.getValueBtnDefault():
             self.default()
             self.__view.refreshView(self.__shared)
+            self.__view.setBtnTextMusicVolume("10%")
             self.__view.setValueBtnDefault()
 
         if self.__view.getValueBtnChangeBackgound():
@@ -66,6 +67,9 @@ class SettingsController:
                 pygame.mixer.music.stop()
                 self.__view.setBtnTextMusicOn("DESACTIVER")
             self.__view.setValueBtnSetMusicOn()
+        
+        if self.__view.getValueBtnSetMusicVolume():
+            self.actionBtnMusicVolume()
 
     def actionBtnsProfile(self):
 
@@ -84,11 +88,13 @@ class SettingsController:
         if self.__view.getValueBtnSetProfileName2():
             self.actionBtnsProfileName("NamePlayer2")
             self.__view.setValueBtnSetProfileName2()
+            self.__view.setValueBtnSetMusicVolume()
     
     def playMusic(self,value):
         if self.__shared["MusicOn"]:
             pygame.mixer.music.stop()
             pygame.mixer.music.load(self.__shared[value])
+            pygame.mixer.music.set_volume(self.__shared["MusicVolume"])
             pygame.mixer.music.play(-1,0.0)
             self.__shared["CurrentMusic"] = self.__shared[value]
 
@@ -97,6 +103,20 @@ class SettingsController:
         if music != "":
             self.__shared[value] = music
             self.playMusic(value)
+
+    def actionBtnMusicVolume(self):
+        try:
+            newVolume = self.__view.getValueInputBox()
+            if newVolume != "":
+                if int(newVolume) >= 0 and int(newVolume) <= 100:
+                    volumeInt = int(newVolume)
+                self.__shared["MusicVolume"] = float(volumeInt/100)
+                pygame.mixer.music.set_volume(self.__shared["MusicVolume"])
+                self.__view.setBtnTextMusicVolume(f"{volumeInt}%")
+                self.__view.refreshView(self.__shared)
+            self.__view.setValueInputBox() 
+        except:
+            pass
 
     def actionBtnsProfileName(self,value):
         newName = self.__view.getValueInputBox()
@@ -127,6 +147,7 @@ class SettingsController:
         self.__shared["MusicSolo"] = "src/resources/musics/motivation-hip-hop-epic-sport-hip-hop-background-music-124924.mp3"
         self.__shared["MusicOnLine"] = "src/resources/musics/trap-beat-99191.mp3"
         self.__shared["MusicOn"] = True
+        self.__shared["MusicVolume"] = 0.1
         self.__musicOn = True
         self.__view.setBtnTextMusicOn("ACTIVER")
         self.playMusic("MusicGeneral")

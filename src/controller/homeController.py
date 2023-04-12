@@ -14,6 +14,7 @@ class HomeComtroller:
         if self.__shared["MusicOn"]:
             pygame.mixer.music.stop()
             pygame.mixer.music.load(self.__shared["MusicGeneral"])
+            pygame.mixer.music.set_volume(self.__shared["MusicVolume"])
             pygame.mixer.music.play(-1,0.0)
             self.__shared["CurrentMusic"] = self.__shared["MusicGeneral"]
 
