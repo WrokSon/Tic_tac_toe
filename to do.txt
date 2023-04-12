@@ -1,4 +1,5 @@
 - to save the config on file
-- to start the part of AI and if possible the part of OnLine
+- to make the part of AI 
+- to make the part of OnLine
 - to manage the volume
-music on or off + choose
+- to design ico buttons
