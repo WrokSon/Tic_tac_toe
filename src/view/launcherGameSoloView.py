@@ -2,7 +2,7 @@ import pygame, sys, os
 sys.path.append(os.getcwd())
 from pygame.locals import *
 from view.view import View
-from resources.tools.toolsDisplayable import Text, Button, TextInputBox, DropDown
+from resources.tools.toolsDisplayable import Text, Button, TextInputBox
 
 pygame.init()
 

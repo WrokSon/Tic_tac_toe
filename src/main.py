@@ -1,4 +1,4 @@
-import pygame, sys, os
+import pygame, sys, os, socket
 from pygame.locals import *
 pygame.init()
 pygame.mixer.init()
@@ -13,7 +13,8 @@ from controller.unavailableController import UnavailableController
 
 class App:
     def __init__(self):
-        self.__dimWindow = (720,400)  
+        self.__dimWindow = (720,400)
+        self.__myIpAddr = socket.gethostbyname(socket.gethostname())  
         self.loadAll()
         self.__icon = pygame.image.load("src/resources/images/app/icon.ico")
         pygame.display.set_icon(self.__icon)
@@ -57,6 +58,14 @@ class App:
         self.__shared["MusicVolume"] = 0.1
         self.__shared["difficulty"] = "Facile"
         self.__shared["difficultyList"] = ["Facile","Difficle"]
+        self.__shared["server"] = False
+        self.__shared["isConnected"] = False
+        self.__shared["IpAddrServer"] = self.__myIpAddr
+        self.__shared["IpAddrClient"] = self.__myIpAddr
+        self.__shared["port"] = 7639
+        self.__shared["msgPlayers"] = ["Bienvenu(e)","Bienvenu(e)"]
+        self.__shared["typConnection"] = ["REJOINDRE","CREER"]
+
 
     def loadControllerPages(self):
         self.__controllers = []

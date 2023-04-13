@@ -1,4 +1,4 @@
-import pygame, sys, os
+import pygame, sys, os, socket
 sys.path.append(os.getcwd())
 from pygame.locals import *
 from controller.controller import Controller
@@ -154,6 +154,11 @@ class SettingsController(Controller):
         self.__shared["MusicVolume"] = 0.1
         self.__shared["difficultyList"] = ["Facile","Moyen","Difficile"]
         self.__shared["difficulty"] = "Facile"
+        self.__shared["server"] = False
+        self.__shared["isConnected"] = False
+        self.__shared["IpAddrServer"] = self.__shared["IpAddrClient"]
+        self.__shared["msgPlayer1"] = "Bienvenu(e)"
+        self.__shared["msgPlayer2"] = "Bienvenu(e)"
         self.__musicOn = True
         self.__view.setBtnTextMusicOn("ACTIVER")
         self.playMusic("MusicGeneral")

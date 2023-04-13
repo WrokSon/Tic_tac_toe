@@ -20,7 +20,6 @@ class LauncherGameController(Controller):
         if self.__shared["mode"] == ModeGame.HUMAN: self.__view = self.__viewHumain
         if self.__shared["mode"] == ModeGame.BOT: 
             self.__view = self.__viewSolo
-            self.__dificultySelected = -1
         if self.__shared["mode"] == ModeGame.ONLINE: self.__view = self.__viewOnLine
     
     def action(self,event):
@@ -48,6 +47,10 @@ class LauncherGameController(Controller):
             self.actionHman()
             self.__view.setValueBtnStart()
             return Page.NEXT
+        
+        if self.__shared["mode"] == ModeGame.ONLINE : 
+            self.actionOnLine()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_KP_ENTER : self.__view.setValueIsConnected()
 
     def actionHman(self):
         if self.__shared["mode"] == ModeGame.HUMAN:
@@ -66,7 +69,44 @@ class LauncherGameController(Controller):
             else:
                 self.__view.setTextBtnDificulty("Facile")
             self.__view.setValueBtnDificulty()
-        
+    
+    def actionOnLine(self):
+        self.actionOnLineBtnTypConnection()
+        self.actionOnLineBtnMassagePlayer()
+
+        if self.__view.getValueBtnConnect():
+            self.__shared["IpAddrServer"] = self.__view.getValueTIBIPPlayer2()
+            #faire la connexion
+            #self.__shared["isConnected"] = True #a modifer par la valeur de retour du serveur
+            self.__view.refreshView(self.__shared)
+            self.__view.setValueBtnConnect()
+
+    def actionOnLineBtnTypConnection(self):
+        if self.__view.getValueBtnTypOfConnection():
+            if self.__view.getTextBtnTypOfConnection() == self.__shared["typConnection"][0]:
+                self.__view.setTextBtnTypOfConnection(self.__shared["typConnection"][1])
+                self.__shared["server"] = True
+            else:
+                self.__view.setTextBtnTypOfConnection(self.__shared["typConnection"][0])
+                self.__shared["server"] = False
+            
+            self.__view.setValueBtnTypOfConnection()
+            self.__view.setValueViewJoin()
+            self.__view.refreshView(self.__shared)
+
+    def actionOnLineBtnMassagePlayer(self):
+        if self.__view.getValueBtnMessagePlayer():
+            msg = self.__view.getValueTIBMessagePlayer()
+            if msg != "":
+                #envoyer un requette
+                if self.__shared["server"] : 
+                    self.__shared["msgPlayers"][1] = msg
+                else:
+                    self.__shared["msgPlayers"][0] = msg           
+            self.__view.setValueBtnMessagePlayer()
+            self.__view.setValueTIBMessagePlayer()
+            self.__view.refreshView(self.__shared)
+
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés
         self.__shared = sharedUpdate

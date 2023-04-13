@@ -51,6 +51,7 @@ class HomeComtroller(Controller):
         if self.__shared["MusicGeneral"] != self.__shared["CurrentMusic"] : self.playMusic()
         self.__shared = sharedUpdate
         self.__shared["mode"] = ModeGame.NOMODE
+        self.__shared["isConnected"] = False
         self.__view.refreshView(self.__shared)
 
     def run(self):
