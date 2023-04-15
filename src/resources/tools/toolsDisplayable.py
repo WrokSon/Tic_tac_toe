@@ -161,7 +161,6 @@ class Text:
         self.position = position
         self.__color = color
         self.__font = pygame.font.Font(None, self.__size)
-        self.draw()
 
     def getText(self):
         return self.__text
