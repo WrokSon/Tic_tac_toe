@@ -1,5 +1,5 @@
 - to save the config on file
 - to make the part of AI 
 - to make the part of OnLine
-- to make the introduce screen
 - to design ico buttons
+- to add a button to launch a server and to remove the buttons home and chooser mode 

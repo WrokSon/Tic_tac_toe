@@ -65,7 +65,7 @@ class App:
         self.__shared["IpAddrClient"] = self.__myIpAddr
         self.__shared["port"] = 7639
         self.__shared["msgPlayers"] = ["Bienvenu(e)","Bienvenu(e)"]
-        self.__shared["typConnection"] = ["REJOINDRE","CREER"]
+        self.__shared["typConnection"] = ["INVITE","HOTE"]
 
 
     def loadControllerPages(self):

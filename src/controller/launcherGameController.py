@@ -73,6 +73,7 @@ class LauncherGameController(Controller):
     def actionOnLine(self):
         self.actionOnLineBtnTypConnection()
         self.actionOnLineBtnMassagePlayer()
+        self.actionOnlineLaunchedServer()
 
         if self.__view.getValueBtnConnect():
             self.__shared["IpAddrServer"] = self.__view.getValueTIBIPPlayer2()
@@ -106,6 +107,11 @@ class LauncherGameController(Controller):
             self.__view.setValueBtnMessagePlayer()
             self.__view.setValueTIBMessagePlayer()
             self.__view.refreshView(self.__shared)
+
+    def actionOnlineLaunchedServer(self):
+        if self.__view.getBtnLaunchedServer():
+            self.__view.setValueServerlaunched()
+            self.__view.setBtnLaunchedServer()
 
     def update(self,sharedUpdate):
         #pour mettre a jour le des infos partagés

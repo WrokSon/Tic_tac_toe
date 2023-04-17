@@ -13,6 +13,7 @@ class LauncherGameOnLineView(View):
         self.__fonts = self.__shared["fonts"]
         self.__viewJoin = True
         self.__isConnected = False
+        self.__serverlaunched = False
         self.createAll()
     
     def getValueBtnHome(self):
@@ -33,6 +34,9 @@ class LauncherGameOnLineView(View):
     def getValueBtnMessagePlayer(self):
         return self.__btnMessagePlayer.isActive()
 
+    def getBtnLaunchedServer(self):
+        return self.__btnLaunchedServer.isActive()
+
     def getValueTIBIPPlayer2(self):
         return self.__tIBIPPlayer2.getText()
 
@@ -41,6 +45,9 @@ class LauncherGameOnLineView(View):
 
     def setValueViewJoin(self):
         self.__viewJoin = not self.__viewJoin
+
+    def setValueServerlaunched(self):
+        self.__serverlaunched = True
 
     def setValueIsConnected(self):
         self.__isConnected = not self.__isConnected
@@ -62,6 +69,9 @@ class LauncherGameOnLineView(View):
 
     def setValueBtnMessagePlayer(self):
         self.__btnMessagePlayer.notActive()
+
+    def setBtnLaunchedServer(self):
+        self.__btnLaunchedServer.notActive()
 
     def setValueTIBMessagePlayer(self):
         self.__tIBMessagePlayer.setText("")
@@ -92,7 +102,6 @@ class LauncherGameOnLineView(View):
         color = "white"
         self.__tNamePlayer1 = Text(self.__window,nameP1,(self.__posElemntsX[0]-margeX[0],self.__posElemntsY[0]),size=sizeText)
         self.__tNamePlayer2 = Text(self.__window,nameP2,(self.__posElemntsX[1]+margeX[0],self.__posElemntsY[0]),size=sizeText)
-        
         self.createTextsMessage(margeX, margeY, color)
 
     def createTextsMessage(self, margeX, margeY, color):
@@ -100,6 +109,7 @@ class LauncherGameOnLineView(View):
         self.__tMessageName2 = Text(self.__window,self.__shared["NamePlayer2"],(self.__posElemntsX[0]-margeX[0],self.__posElemntsY[3]+margeY),"blue")
         self.__tMessagePlayer1 = Text(self.__window,": Bienvenue",(self.__posElemntsX[0]+margeX[1],self.__posElemntsY[3]),color)
         self.__tMessagePlayer2 = Text(self.__window,": Bienvenue",(self.__posElemntsX[0]+margeX[1],self.__posElemntsY[3]+margeY),color)
+        self.__tMessageServer = Text(self.__window,"creer un salon et invité un joueur",(self.__posElemntsX[0]+100,self.__posElemntsY[2]-15),"white")
 
     def createTextsServer(self):
         self.__tMyIP = Text(self.__window,self.__shared["IpAddrClient"],(self.__posElemntsX[1]-170,self.__posElemntsY[2]-30),"white",size=50)
@@ -114,11 +124,12 @@ class LauncherGameOnLineView(View):
         self.__tNamePlayer2.setFont(self.__fonts[1])
 
     def createButtons(self):
-        self.__btnTypOfConnection = Button(self.__window,"REJOINDRE",position=(240,self.__posElemntsY[0]),dimension=(250,50))
+        self.__btnTypOfConnection = Button(self.__window,self.__shared["typConnection"][0],position=(240,self.__posElemntsY[0]),dimension=(250,50))
         self.__btnHomeGo = Button(self.__window,"[H]",position=(10,self.__posElemntsY[4]))
         self.__btnStartGo = Button(self.__window,"JOUER",position=(570,self.__posElemntsY[4]))
-        self.__btnConnectGo = Button(self.__window,"CONNECTER",position=(510,self.__posElemntsY[4]),dimension=(200,50))
+        self.__btnConnectGo = Button(self.__window,"REJOINDRE",position=(510,self.__posElemntsY[4]),dimension=(200,50))
         self.__btnMessagePlayer = Button(self.__window,"ENVOYER",position=(self.__posElemntsX[1]-60,self.__posElemntsY[1]+15),dimension=(180,50))
+        self.__btnLaunchedServer = Button(self.__window,"CREER",position=(540,self.__posElemntsY[4]),dimension=(160,50))
 
     def createTextInputBox(self):
         self.__tIBIPPlayer2 = TextInputBox(self.__window,(self.__posElemntsX[1],self.__posElemntsY[2]-10),maximum=15)
@@ -138,7 +149,7 @@ class LauncherGameOnLineView(View):
         self.__tTitle.draw() 
         self.__tTitle.setColor(self.__colorText)
         if not self.__isConnected : 
-            self.drawTextsIsNotConnected(color)     
+            self.drawTextsIsNotConnected(color)    
         else:
             pygame.draw.rect(self.__window,color,[(50,50),(630,270)])
             pygame.draw.rect(self.__window,"black",[(65,self.__posElemntsY[3]-15),(600,80)])
@@ -149,6 +160,7 @@ class LauncherGameOnLineView(View):
             self.__tMessagePlayer2.draw()
             self.__tMessageName1.draw()
             self.__tMessageName2.draw()
+            
 
     def drawTextsIsNotConnected(self, color):
         if self.__viewJoin : 
@@ -156,16 +168,20 @@ class LauncherGameOnLineView(View):
             self.__tIPPlayer2.draw()
         else:
             pygame.draw.rect(self.__window,"black",[(self.__posElemntsX[1]-200,self.__posElemntsY[1]),(460,140)])
-            self.__tMyIP.draw() 
-            self.__tMessageServerLisening.draw()
-            self.__tMessageServerLisening.setColor(self.__colorText)
+            if self.__serverlaunched and not self.__isConnected:
+                self.__tMyIP.draw() 
+                self.__tMessageServerLisening.draw()
+                self.__tMessageServerLisening.setColor(self.__colorText)
+            else:
+                self.__tMessageServer.draw() 
 
     def drawButtons(self):
-        self.__btnHomeGo.draw()
+        if not self.__serverlaunched and not self.__isConnected : self.__btnHomeGo.draw()
         if not self.__viewJoin and self.__isConnected : self.__btnStartGo.draw()
-        if not self.__isConnected : self.__btnTypOfConnection.draw()
+        if not self.__isConnected and not self.__serverlaunched : self.__btnTypOfConnection.draw()
         if self.__viewJoin and not self.__isConnected : self.__btnConnectGo.draw()
         if self.__isConnected : self.__btnMessagePlayer.draw()
+        if not self.__serverlaunched and not self.__viewJoin and not self.__isConnected: self.__btnLaunchedServer.draw()
 
     def drawTextInputBox(self):
         if self.__viewJoin and not self.__isConnected : self.__tIBIPPlayer2.draw()
@@ -176,11 +192,12 @@ class LauncherGameOnLineView(View):
         self.doEvent(event)
 
     def updateButtons(self, event):
-        self.__btnHomeGo.update(event)
+        if not self.__isConnected and not self.__serverlaunched : self.__btnHomeGo.update(event)
         if not self.__viewJoin and self.__isConnected : self.__btnStartGo.update(event)
-        if not self.__isConnected and not self.__isConnected : self.__btnTypOfConnection.update(event)
+        if not self.__serverlaunched and not self.__isConnected : self.__btnTypOfConnection.update(event)
         if self.__viewJoin and not self.__isConnected : self.__btnConnectGo.update(event)
         if self.__isConnected : self.__btnMessagePlayer.update(event)
+        if not self.__serverlaunched and not self.__viewJoin and not self.__isConnected: self.__btnLaunchedServer.update(event)
 
     def updateTextInputBox(self,event):
         if self.__viewJoin and not self.__isConnected : self.__tIBIPPlayer2.update(event)
