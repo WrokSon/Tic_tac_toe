@@ -17,7 +17,7 @@ class App:
         self.__dimWindow = (720,400)
         self.__myIpAddr = socket.gethostbyname(socket.gethostname())  
         self.loadAll()
-        self.__icon = pygame.image.load("src/resources/images//icons/app/icon.ico")
+        self.__icon = pygame.image.load("src/resources/images//app/icon.ico")
         pygame.display.set_icon(self.__icon)
         self.__currentPage = self.__shared["page"].value
          
@@ -43,7 +43,7 @@ class App:
     def loadCommon(self):
         self.__shared = {}
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
-        self.__shared["bg"] = "src/resources/images//icons/app/background.jpg"
+        self.__shared["bg"] = "src/resources/images/app/background.jpg"
         self.__shared["mode"] = ModeGame.NOMODE
         self.__shared["page"] = Page.PRESENTATION
         self.__shared["fonts"] = self.__fonts
