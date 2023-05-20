@@ -12,6 +12,7 @@ class LauncherGameSoloView(View):
         self.__windowTitle = "Tic Tac Toe | Salon pour jouer tout seul"
         self.__window = self.__shared["window"]
         self.__fonts = self.__shared["fonts"]
+        self.__icons = self.__shared["icons"]
         self.createAll()
     
     def getValueBtnHome(self):
@@ -67,6 +68,8 @@ class LauncherGameSoloView(View):
         self.__btnHomeGo = Button(self.__window,"[H]",position=(10,btnsPosY))
         self.__btnStartGo = Button(self.__window,"JOUER",position=(570,btnsPosY))
         self.__btnDificulty = Button(self.__window,self.__shared["difficulty"],position=(self.__posElemntsX[1],self.__posElemntsY[1]-20),dimension=(200,50))
+
+        self.__btnHomeGo.setIcon(self.__icons[3])
 
     def createTextInputBox(self):
         self.__tIBPlayer = TextInputBox(self.__window,(self.__posElemntsX[0],self.__posElemntsY[1]))

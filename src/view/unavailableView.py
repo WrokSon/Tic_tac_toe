@@ -11,6 +11,7 @@ class UnavailableView(View):
         self.__shared = shared
         self.__windowTitle = "Tic Tac Toe | Pag indisponnible"
         self.__window = self.__shared["window"]
+        self.__icons = self.__shared["icons"]
         self.createAll()
     
     def getValueBtnHome(self):
@@ -22,6 +23,7 @@ class UnavailableView(View):
     def createAll(self):
         self.createBg()
         self.__btnHomeGo = Button(self.__window,"Home",position=(280,180))
+        self.__btnHomeGo.setIcon(self.__icons[3])
         self.__tInfo = Text(self.__window,"Page indisponnible, revenez plus tard",(160,115),"red")
         pygame.display.update()
     

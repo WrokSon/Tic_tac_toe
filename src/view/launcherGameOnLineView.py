@@ -11,6 +11,7 @@ class LauncherGameOnLineView(View):
         self.__windowTitle = "Tic Tac Toe | Salon pour jouer en ligne"
         self.__window = self.__shared["window"]
         self.__fonts = self.__shared["fonts"]
+        self.__icons = self.__shared["icons"]
         self.__viewJoin = True
         self.__isConnected = False
         self.__serverlaunched = False
@@ -130,6 +131,8 @@ class LauncherGameOnLineView(View):
         self.__btnConnectGo = Button(self.__window,"REJOINDRE",position=(510,self.__posElemntsY[4]),dimension=(200,50))
         self.__btnMessagePlayer = Button(self.__window,"ENVOYER",position=(self.__posElemntsX[1]-60,self.__posElemntsY[1]+15),dimension=(180,50))
         self.__btnLaunchedServer = Button(self.__window,"CREER",position=(540,self.__posElemntsY[4]),dimension=(160,50))
+
+        self.__btnHomeGo.setIcon(self.__icons[3])
 
     def createTextInputBox(self):
         self.__tIBIPPlayer2 = TextInputBox(self.__window,(self.__posElemntsX[1],self.__posElemntsY[2]-10),maximum=15)

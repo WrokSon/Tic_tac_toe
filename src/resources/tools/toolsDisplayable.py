@@ -103,6 +103,8 @@ class Button:
         self.__colorBg = color
         self.__colorNormal = color
         self.__colorText = "black"
+        self.__icon = None
+        self.__typText = True
         self.rect = pygame.Rect(self.position, self.__dimension)
 
     def getText(self):
@@ -110,6 +112,11 @@ class Button:
 
     def setText(self,newText):
         self.__text = newText
+
+    def setIcon(self,newIcon):
+        self.__typText = False
+        img = pygame.image.load(newIcon)
+        self.__icon = pygame.transform.scale(img,(40,40))
 
     def isActive(self):
         return self.__active
@@ -121,7 +128,14 @@ class Button:
 
     def draw(self):
         self.drawBg()
-        self.drawText()
+        if self.__typText : self.drawText()
+        else : self.drawIcon()
+
+    def drawIcon(self):
+        if self.__icon != None:
+            self.__window.blit(self.__icon,self.__icon.get_rect(center=self.rect.center))
+        else:
+            self.__text = "fail"
 
     def drawText(self):
         font = pygame.font.Font(None, self.__sizeText)
@@ -151,6 +165,7 @@ class Button:
     def changePos(self, pos):
         self.position = pos
         self.rect = pygame.Rect(self.position, self.__dimension)
+
 
 
 class Text:

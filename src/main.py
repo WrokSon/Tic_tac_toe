@@ -17,7 +17,7 @@ class App:
         self.__dimWindow = (720,400)
         self.__myIpAddr = socket.gethostbyname(socket.gethostname())  
         self.loadAll()
-        self.__icon = pygame.image.load("src/resources/images/app/icon.ico")
+        self.__icon = pygame.image.load("src/resources/images//icons/app/icon.ico")
         pygame.display.set_icon(self.__icon)
         self.__currentPage = self.__shared["page"].value
          
@@ -36,16 +36,18 @@ class App:
 
     def loadAll(self):
         self.loadFonts()
+        self.loadIcons()
         self.loadCommon()
         self.loadControllerPages()
     
     def loadCommon(self):
         self.__shared = {}
         self.__shared["window"] = pygame.display.set_mode(self.__dimWindow)
-        self.__shared["bg"] = "src/resources/images/app/background.jpg"
+        self.__shared["bg"] = "src/resources/images//icons/app/background.jpg"
         self.__shared["mode"] = ModeGame.NOMODE
         self.__shared["page"] = Page.PRESENTATION
         self.__shared["fonts"] = self.__fonts
+        self.__shared["icons"] = self.__icons
         self.__shared["NamePlayer1"] = "Joueur 1"
         self.__shared["NamePlayer2"] = "Joueur 2"
         self.__shared["ImagePlayer1"] = "src/resources/images/profile/profilePlayerDefault.png"
@@ -66,6 +68,19 @@ class App:
         self.__shared["port"] = 7639
         self.__shared["msgPlayers"] = ["Bienvenu(e)","Bienvenu(e)"]
         self.__shared["typConnection"] = ["INVITE","HOTE"]
+
+    def loadIcons(self):
+        self.__icons = []
+        self.__icons.append("src/resources/images/icons/settings.png")
+        self.__icons.append("src/resources/images/icons/download.png")
+        self.__icons.append("src/resources/images/icons/restart.png")
+        self.__icons.append("src/resources/images/icons/home.png")
+        self.__icons.append("src/resources/images/icons/back.png")
+        self.__icons.append("src/resources/images/icons/default.png")
+        self.__icons.append("src/resources/images/icons/edit/text.png")
+        self.__icons.append("src/resources/images/icons/edit/image.png")
+        self.__icons.append("src/resources/images/icons/edit/music.png")
+
 
 
     def loadControllerPages(self):

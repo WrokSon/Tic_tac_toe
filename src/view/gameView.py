@@ -12,6 +12,7 @@ class GameView(View):
         self.__windowTitle = "Tic Tac Toe | Jeu"
         self.__window = self.__shared["window"]
         self.__fonts = self.__shared["fonts"]
+        self.__icons = self.__shared["icons"]
         self.__mode = self.__shared["mode"]
         self.__caseClicked = None
         self.__grid = grid
@@ -209,6 +210,13 @@ class GameView(View):
         self.__btnHomeGo = Button(self.__window,"[H]",position=(btnPosition[0][1],btnPosition[1]),dimension=dimBtn)
         self.__btnSettingsGo = Button(self.__window,"[S]",position=(btnPosition[0][0],btnPosition[1]),dimension=dimBtn)
         self.__btnSaveFile = Button(self.__window,"\|/",position=(btnPosition[0][3],btnPosition[1]),dimension=dimBtn)
+        self.setIconButtons()
+
+    def setIconButtons(self):
+        self.__btnSettingsGo.setIcon(self.__icons[0])
+        self.__btnSaveFile.setIcon(self.__icons[1])
+        self.__btnRestart.setIcon(self.__icons[2])
+        self.__btnHomeGo.setIcon(self.__icons[3])
 
     def drawButtons(self):
         self.__btnRestart.draw()

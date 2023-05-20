@@ -12,6 +12,7 @@ class SettingsView(View):
         self.__shared = shared
         self.__windowTitle = "Tic Tac Toe | Parametres"
         self.__window = self.__shared["window"]
+        self.__icons = self.__shared["icons"]
         self.createAll()
     
     def getFileSelected(self):
@@ -138,6 +139,24 @@ class SettingsView(View):
         self.__btnChangBg = Button(self.__window,"F",position=(self.__BtnPosX[1],60),dimension=self.__dimBtns)
         self.createButtonsMusic()
         self.createButtonsProfile()
+        self.setIconsButtons()
+    
+    def setIconsButtons(self):
+        self.__btnHomeGo.setIcon(self.__icons[3])
+        self.__btnGameGo.setIcon(self.__icons[4])
+        self.__btnDefault.setIcon(self.__icons[5])
+        self.setIconsButtonsEdit()
+
+    def setIconsButtonsEdit(self):
+        self.__btnSetProfileName1.setIcon(self.__icons[6])
+        self.__btnSetProfileName2.setIcon(self.__icons[6])
+        self.__btnChangBg.setIcon(self.__icons[7])
+        self.__btnSetProfileImage1.setIcon(self.__icons[7])
+        self.__btnSetProfileImage2.setIcon(self.__icons[7])
+        self.__btnSetMusicHuman.setIcon(self.__icons[8])
+        self.__btnSetMusicOnLine.setIcon(self.__icons[8])
+        self.__btnSetMusicSolo.setIcon(self.__icons[8])
+        self.__btnSetMusic.setIcon(self.__icons[8])
 
     def drawAll(self):
         self.__window.blit(self.__imgBg,(0,0))

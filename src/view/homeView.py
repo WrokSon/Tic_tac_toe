@@ -12,6 +12,7 @@ class HomeWiew(View):
         self.__windowTitle = "Tic Tac Toe | Page d'acceuille"
         self.__window = self.__shared["window"]
         self.__fonts = self.__shared["fonts"]
+        self.__icons = self.__shared["icons"]
         self.createAll()
     
     def getValueBtnHumanGo(self):
@@ -69,6 +70,7 @@ class HomeWiew(View):
     def createButtons(self):
         self.createButtonsGo()
         self.__btnSettings = Button(self.__window,"*_*",position=(660,10),dimension=(50,50))
+        self.__btnSettings.setIcon(self.__icons[0])
 
     def createButtonsGo(self):
         posBtn = [[i*150 for i in range(1,4)],300]
